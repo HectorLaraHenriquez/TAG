@@ -29,6 +29,8 @@ object Store {
         private set
     @Volatile var batteryAsked = false
         private set
+    @Volatile var overlayAsked = false
+        private set
     @Volatile var status = ""
 
     fun init(ctx: Context) {
@@ -59,10 +61,11 @@ object Store {
             for (i in 0 until a.length()) {
                 val o = a.getJSONObject(i)
                 fun d(k: String) = if (o.isNull(k)) null else o.getDouble(k)
-                tariffs[o.getLong("id")] = Tariff(d("base"), d("punta"), d("saturacion"))
+                val win = try { parseWindows(o.optString("win")) } catch (e: Exception) { emptyList() }
+                tariffs[o.getLong("id")] = Tariff(d("base"), d("punta"), d("saturacion"), win)
             }
         }
-        readObj("cfg.json")?.let { defPrice = it.optDouble("def", 0.0); batteryAsked = it.optBoolean("batteryAsked") }
+        readObj("cfg.json")?.let { defPrice = it.optDouble("def", 0.0); batteryAsked = it.optBoolean("batteryAsked"); overlayAsked = it.optBoolean("overlayAsked") }
         inited = true
     }
 
@@ -75,8 +78,13 @@ object Store {
     fun gantry(id: Long): Gantry? = gById[id]
     fun snapshot(): List<Pass> = synchronized(lock) { passes.map { it.copy() } }
 
-    fun priceOf(p: Pass): Double? =
-        p.price ?: tariffs[p.id]?.priceAt(p.t) ?: if (defPrice > 0) defPrice else null
+    fun tariff(id: Long): Tariff? = synchronized(lock) { tariffs[id] }
+
+    /** Precio de un pórtico en el instante t (tarifa según horario, o la tarifa por defecto). */
+    fun priceAt(id: Long, t: Long): Double? =
+        tariff(id)?.priceAt(t) ?: if (defPrice > 0) defPrice else null
+
+    fun priceOf(p: Pass): Double? = p.price ?: priceAt(p.id, p.t)
 
     fun label(id: Long): Pair<String, String> {
         val g = gById[id] ?: return "Pórtico $id" to ""
@@ -100,17 +108,18 @@ object Store {
         notifyChanged()
     }
 
-    fun addPasses(found: List<Found>): Int {
-        var added = 0
+    /** Agrega las pasadas nuevas y devuelve las que efectivamente se agregaron. */
+    fun addPasses(found: List<Found>): List<Found> {
+        val added = ArrayList<Found>()
         synchronized(lock) {
             for (f in found) {
                 if (passes.any { it.id == f.id && Math.abs(it.t - f.t) < COOLDOWN_MS }) continue
-                passes.add(Pass(f.t, f.id, tariffs[f.id]?.priceAt(f.t)))
-                added++
+                passes.add(Pass(f.t, f.id, null))
+                added.add(f)
             }
-            if (added > 0) { passes.sortBy { it.t }; savePasses() }
+            if (added.isNotEmpty()) { passes.sortBy { it.t }; savePasses() }
         }
-        if (added > 0) notifyChanged()
+        if (added.isNotEmpty()) notifyChanged()
         return added
     }
 
@@ -119,25 +128,70 @@ object Store {
         notifyChanged()
     }
 
-    /** Fija la tarifa del pórtico: la pasada indicada y todas las anteriores/posteriores sin tarifa. */
-    fun setTariff(t: Long, id: Long, v: Double) {
+    /** Fija las tarifas del pórtico; aplica a todas sus pasadas (anteriores y futuras). */
+    fun setTariff(id: Long, t: Tariff) {
         synchronized(lock) {
-            tariffs[id] = (tariffs[id] ?: Tariff(null)).copy(base = v)
-            for (q in passes) if (q.id == id && (q.price == null || (q.t == t))) q.price = v
-            val a = JSONArray()
-            for ((k, tf) in tariffs) a.put(JSONObject().put("id", k).put("base", tf.base ?: JSONObject.NULL)
-                .put("punta", tf.punta ?: JSONObject.NULL).put("saturacion", tf.saturacion ?: JSONObject.NULL))
-            write("tariffs.json", a.toString())
-            savePasses()
+            tariffs[id] = t
+            for (q in passes) if (q.id == id) q.price = null
+            saveTariffs(); savePasses()
         }
         notifyChanged()
     }
 
+    fun mergeTariffs(m: Map<Long, Tariff>) {
+        synchronized(lock) {
+            tariffs.putAll(m)
+            for (q in passes) if (m.containsKey(q.id)) q.price = null
+            saveTariffs(); savePasses()
+        }
+        notifyChanged()
+    }
+
+    private fun saveTariffs() {
+        val a = JSONArray()
+        for ((k, tf) in tariffs) a.put(JSONObject().put("id", k).put("base", tf.base ?: JSONObject.NULL)
+            .put("punta", tf.punta ?: JSONObject.NULL).put("saturacion", tf.saturacion ?: JSONObject.NULL)
+            .put("win", formatWindows(tf.windows)))
+        write("tariffs.json", a.toString())
+    }
+
+    // ---- recorrido del día (un CSV por día: t,lat,lon) ----
+    private fun trackFile(day: String) = File(File(dir, "tracks").apply { mkdirs() }, "$day.csv")
+
+    fun appendTrack(f: Fix) {
+        try { trackFile(dayKey(f.t)).appendText("${f.t},${f.lat},${f.lon}\n") } catch (e: Exception) {}
+    }
+
+    fun readTrack(day: String): List<Fix> = try {
+        val f = trackFile(day)
+        if (!f.exists()) emptyList() else f.readLines().mapNotNull { ln ->
+            val c = ln.split(',')
+            if (c.size < 3) null else Fix(c[1].toDouble(), c[2].toDouble(), c[0].toLong())
+        }
+    } catch (e: Exception) { emptyList() }
+
+    /** Guarda un recorrido importado en los días que aún no tienen recorrido. */
+    fun saveImportedTrack(pts: List<Fix>) {
+        for ((day, l) in pts.groupBy { dayKey(it.t) }) {
+            val f = trackFile(day)
+            if (f.exists() && f.length() > 0) continue
+            val sb = StringBuilder()
+            var last: Fix? = null
+            for (p in l) {
+                if (last != null && haversine(last, p) < 10) continue
+                sb.append(p.t).append(',').append(p.lat).append(',').append(p.lon).append('\n'); last = p
+            }
+            try { f.writeText(sb.toString()) } catch (e: Exception) {}
+        }
+    }
+
     fun setDefPrice(v: Double) { defPrice = v; saveCfg(); notifyChanged() }
     fun setBatteryAsked() { batteryAsked = true; saveCfg() }
+    fun setOverlayAsked() { overlayAsked = true; saveCfg() }
 
     fun clearPasses() {
         synchronized(lock) { passes.clear(); savePasses() }
+        try { File(dir, "tracks").deleteRecursively() } catch (e: Exception) {}
         notifyChanged()
     }
 
@@ -152,7 +206,7 @@ object Store {
         for (p in passes) a.put(JSONObject().put("t", p.t).put("id", p.id).put("price", p.price ?: JSONObject.NULL))
         write("passes.json", a.toString())
     }
-    private fun saveCfg() = write("cfg.json", JSONObject().put("def", defPrice).put("batteryAsked", batteryAsked).toString())
+    private fun saveCfg() = write("cfg.json", JSONObject().put("def", defPrice).put("batteryAsked", batteryAsked).put("overlayAsked", overlayAsked).toString())
     private fun write(name: String, text: String) {
         try {
             val tmp = File(dir, "$name.tmp")

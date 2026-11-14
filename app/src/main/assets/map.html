@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<link rel="stylesheet" href="leaflet.css">
+<style>
+  html, body, #map { height: 100%; margin: 0; background: #10151c; }
+  .leaflet-popup-content { font: 14px/1.35 system-ui, sans-serif; margin: 10px 12px; }
+  .leaflet-popup-content small { color: #667; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="leaflet.js"></script>
+<script>
+var map = L.map('map', { preferCanvas: true }).setView([-33.45, -70.65], 11);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+var layer = L.layerGroup().addTo(map);
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+// d: { track: [[[lat,lon],...],...], marks: [{lat,lon,c,r,title,sub,info}], fit: bool }
+function show(d) {
+  layer.clearLayers();
+  var b = [];
+  (d.track || []).forEach(function (seg) {
+    if (seg.length < 2) return;
+    L.polyline(seg, { color: '#3b82f6', weight: 4, opacity: 0.85 }).addTo(layer);
+    seg.forEach(function (p) { b.push(p); });
+  });
+  (d.marks || []).forEach(function (m) {
+    var html = '<b>' + esc(m.title) + '</b>' + (m.sub ? '<br><small>' + esc(m.sub) + '</small>' : '') + (m.info ? '<br>' + esc(m.info) : '');
+    L.circleMarker([m.lat, m.lon], { radius: m.r || 7, color: '#10151c', weight: 1, fillColor: m.c || '#3ddc97', fillOpacity: 0.95 }).bindPopup(html).addTo(layer);
+    b.push([m.lat, m.lon]);
+  });
+  if (d.fit && b.length) map.fitBounds(b, { padding: [30, 30], maxZoom: 16 });
+  return b.length;
+}
+</script>
+</body>
+</html>

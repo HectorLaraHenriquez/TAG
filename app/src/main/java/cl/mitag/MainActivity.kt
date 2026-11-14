@@ -25,6 +25,10 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import org.json.JSONArray
+import org.json.JSONObject
 import kotlin.concurrent.thread
 
 @Suppress("DEPRECATION")
@@ -41,6 +45,16 @@ class MainActivity : Activity() {
     private val REQ_PERMS = 1
     private val REQ_EXPORT = 2
     private val REQ_IMPORT = 3
+    private val REQ_TARIFFS = 4
+    private val REQ_GANTRIES_CSV = 5
+    private val TAB_MAP = 2
+
+    private lateinit var web: WebView
+    private var mapReady = false
+    private var mapMode = 0          // 0 = ruta del día, 1 = pórticos y precios
+    private var mapShown = ""        // lo último dibujado, para no redibujar igual
+    private var tab = 0
+    private lateinit var mapBtns: List<Button>
 
     private val ui = Handler(Looper.getMainLooper())
     private var viewDay = dayKey(System.currentTimeMillis())
@@ -112,7 +126,7 @@ class MainActivity : Activity() {
         root.addView(header)
 
         val nav = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-        val names = listOf("Día", "Historial", "Ajustes")
+        val names = listOf("Día", "Historial", "Mapa", "Ajustes")
         tabs = names.mapIndexed { i, n ->
             Button(this).apply {
                 text = n; isAllCaps = false; textSize = 15f; setTextColor(MUT); background = null; stateListAnimator = null
@@ -148,18 +162,44 @@ class MainActivity : Activity() {
         }
         setCol.addView(defPrice, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { bottomMargin = dp(14) })
         setCol.addView(btn("Actualizar pórticos (OpenStreetMap)") { downloadGantries(null) })
+        setCol.addView(btn("Importar tarifas (JSON)") { pick(REQ_TARIFFS) })
+        setCol.addView(btn("Exportar lista de pórticos (CSV)") { create(REQ_GANTRIES_CSV, "porticos.csv") })
         setCol.addView(btn("Excluir de la optimización de batería") { requestBatteryExemption() })
+        setCol.addView(btn("Permitir aviso flotante sobre otras apps") { requestOverlay() })
         setCol.addView(btn("Exportar registros a CSV") { exportCsv() })
         setCol.addView(btn("Borrar todos los registros", CARD, BAD) { confirmClear() })
         gInfo = tv("", 13f, MUT)
         setCol.addView(gInfo)
         setCol.addView(tv(
             "Los pórticos vienen de OpenStreetMap. Las tarifas no vienen incluidas: toca el monto de un registro " +
-                "para fijar la tarifa de ese pórtico; queda guardada para las próximas pasadas.", 13f, MUT,
+                "para fijar las tarifas de ese pórtico (base, punta, saturación y sus horarios), o importa un archivo de tarifas. " +
+                "Al pasar un pórtico aparece un aviso por unos segundos con el botón Descartar.", 13f, MUT,
         ).apply { setPadding(0, dp(8), 0, 0) })
 
+        // Mapa
+        web = WebView(this).apply {
+            settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
+            settings.userAgentString = settings.userAgentString + " TAGTracker/1.1"
+            setBackgroundColor(BG)
+            webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) { mapReady = true; mapShown = ""; drawMap() }
+            }
+            loadUrl("file:///android_asset/map.html")
+        }
+        val mapBar = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; setPadding(dp(12), dp(8), dp(12), 0) }
+        mapBtns = listOf("Ruta del día", "Pórticos y precios").mapIndexed { i, n ->
+            btn(n) { mapMode = i; mapShown = ""; drawMap() }.apply {
+                layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginEnd = if (i == 0) dp(8) else 0; bottomMargin = dp(8) }
+            }
+        }
+        mapBtns.forEach { mapBar.addView(it) }
+        val mapCol = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; visibility = View.GONE }
+        mapCol.addView(mapBar)
+        mapCol.addView(web, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
+
         val content = FrameLayout(this)
-        sections = listOf(scroll(dayCol), scroll(histCol), scroll(setCol))
+        sections = listOf(scroll(dayCol), scroll(histCol), mapCol, scroll(setCol))
         sections.forEach { content.addView(it) }
         root.addView(content, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
         setContentView(root)
@@ -175,6 +215,7 @@ class MainActivity : Activity() {
     }
 
     private fun showTab(i: Int) {
+        tab = i
         sections.forEachIndexed { k, s -> s.visibility = if (k == i) View.VISIBLE else View.GONE }
         tabs.forEachIndexed { k, b -> b.setTextColor(if (k == i) TX else MUT); b.setTypeface(null, if (k == i) Typeface.BOLD else Typeface.NORMAL) }
     }
@@ -224,22 +265,93 @@ class MainActivity : Activity() {
             r.setOnClickListener { viewDay = k; showTab(0); render() }
             days.addView(r)
         }
+        if (tab == TAB_MAP) drawMap()
         gInfo.text = if (Store.gantries.isNotEmpty()) "${Store.gantries.size} pórticos cargados." else "No hay pórticos cargados todavía."
+    }
+
+    private fun field(hint: String, value: String, number: Boolean = true) = EditText(this).apply {
+        this.hint = hint; setText(value); setTextColor(TX); setHintTextColor(MUT); textSize = 15f
+        inputType = if (number) InputType.TYPE_CLASS_NUMBER else InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
     }
 
     private fun editPrice(p: Pass) {
         val (name, _) = Store.label(p.id)
-        val et = EditText(this).apply {
-            inputType = InputType.TYPE_CLASS_NUMBER; setTextColor(TX)
-            Store.priceOf(p)?.let { setText(Math.round(it).toString()) }
-        }
-        dialog().setTitle("Tarifa de $name").setMessage("Se usará también en las próximas pasadas por este pórtico.")
-            .setView(et)
+        val cur = Store.tariff(p.id) ?: Tariff(null)
+        fun n(v: Double?) = v?.let { Math.round(it).toString() } ?: ""
+        val base = field("Base / fuera de punta (CLP)", n(cur.base))
+        val punta = field("Punta (opcional)", n(cur.punta))
+        val sat = field("Saturación (opcional)", n(cur.saturacion))
+        val win = field("Horarios, ej: LV 07:30-10:00 P; LV 18:00-20:00 S", formatWindows(cur.windows), false)
+        val box = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(20), dp(4), dp(20), 0) }
+        listOf(base, punta, sat, win).forEach { box.addView(it) }
+        box.addView(tv("Días: LV, S, D, SD, LS, LD. Tipo: P = punta, S = saturación. Sin horarios se cobra siempre la base.", 12f, MUT))
+        dialog().setTitle("Tarifas de $name")
+            .setView(box)
             .setNegativeButton("Cancelar", null)
             .setPositiveButton("Guardar") { _, _ ->
-                val v = et.text.toString().toDoubleOrNull()
-                if (v != null && v >= 0) Store.setTariff(p.t, p.id, v)
+                try {
+                    val b = base.text.toString().toDoubleOrNull()
+                    if (b == null || b < 0) { setStatus("Falta la tarifa base."); return@setPositiveButton }
+                    Store.setTariff(p.id, Tariff(b, punta.text.toString().toDoubleOrNull(), sat.text.toString().toDoubleOrNull(), parseWindows(win.text.toString())))
+                    setStatus("Tarifa guardada.")
+                } catch (e: IllegalArgumentException) { setStatus(e.message ?: "Horario no válido.") }
             }.show()
+    }
+
+    // ---------- mapa ----------
+    private fun drawMap() {
+        if (!mapReady) return
+        mapBtns.forEachIndexed { i, b -> b.background = shape(if (i == mapMode) LINE else CARD, LINE) }
+        val now = System.currentTimeMillis()
+        val key: String
+        val d = JSONObject()
+        val marks = JSONArray()
+        if (mapMode == 0) {
+            val track = Store.readTrack(viewDay)
+            val passes = Store.snapshot().filter { dayKey(it.t) == viewDay }
+            key = "r|$viewDay|${track.size}|${passes.size}|" + passes.sumOf { Store.priceOf(it) ?: 0.0 }
+            if (key == mapShown) return
+            val segs = JSONArray()
+            var seg = JSONArray()
+            var prev: Fix? = null
+            for (f in track) {
+                if (prev != null && f.t - prev.t > 120_000) { segs.put(seg); seg = JSONArray() }
+                seg.put(JSONArray().put(f.lat).put(f.lon)); prev = f
+            }
+            segs.put(seg)
+            d.put("track", segs)
+            for (p in passes) {
+                val g = Store.gantry(p.id) ?: continue
+                val (name, sub) = Store.label(p.id)
+                val cal = java.util.Calendar.getInstance().apply { timeInMillis = p.t }
+                val pr = Store.priceOf(p)
+                marks.put(JSONObject().put("lat", g.lat).put("lon", g.lon).put("c", "#3ddc97").put("r", 8)
+                    .put("title", name).put("sub", sub)
+                    .put("info", "%02d:%02d · %s".format(cal.get(java.util.Calendar.HOUR_OF_DAY), cal.get(java.util.Calendar.MINUTE), pr?.let { money(it) } ?: "sin tarifa")))
+            }
+            d.put("fit", true)
+        } else {
+            val gs = Store.gantries
+            key = "g|${gs.size}|${now / 60000}|${Store.defPrice}|" + gs.count { Store.tariff(it.id) != null }
+            if (key == mapShown) return
+            for (g in gs) {
+                val (name, sub) = Store.label(g.id)
+                val tf = Store.tariff(g.id)
+                val pr = Store.priceAt(g.id, now)
+                val info = when {
+                    tf != null && pr != null -> "Ahora: ${money(pr)} (${bandName(tf.bandAt(now))})"
+                    pr != null -> "Ahora: ${money(pr)} (tarifa por defecto)"
+                    else -> "Sin tarifa"
+                }
+                marks.put(JSONObject().put("lat", g.lat).put("lon", g.lon).put("r", 6)
+                    .put("c", if (tf == null) "#8b98a8" else when (tf.bandAt(now)) { 'S' -> "#ff6b6b"; 'P' -> "#ffb454"; else -> "#3ddc97" })
+                    .put("title", name).put("sub", sub).put("info", info))
+            }
+            d.put("fit", mapShown.isEmpty() || !mapShown.startsWith("g|"))
+        }
+        d.put("marks", marks)
+        mapShown = key
+        web.evaluateJavascript("show($d)", null)
     }
 
     private fun dialog() = AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert)
@@ -299,11 +411,58 @@ class MainActivity : Activity() {
                 Store.setBatteryAsked()
                 dialog().setTitle("Seguimiento en segundo plano")
                     .setMessage("Para que el registro no se corte con la pantalla apagada, excluye TAG TRACKER de la optimización de batería.")
-                    .setNegativeButton("Ahora no") { _, _ -> launchService() }
-                    .setPositiveButton("Excluir") { _, _ -> requestBatteryExemption(); launchService() }
+                    .setNegativeButton("Ahora no") { _, _ -> askOverlayThenLaunch() }
+                    .setPositiveButton("Excluir") { _, _ -> requestBatteryExemption(); askOverlayThenLaunch() }
                     .show()
-            } else launchService()
+            } else askOverlayThenLaunch()
         }
+    }
+
+    private fun askOverlayThenLaunch() {
+        if (!Store.overlayAsked && !Settings.canDrawOverlays(this)) {
+            Store.setOverlayAsked()
+            dialog().setTitle("Aviso al pasar un pórtico")
+                .setMessage("Para mostrar una ventanita con el botón Descartar encima de Waze u otras apps, permite \"Mostrar sobre otras apps\". Sin ese permiso se usa una notificación emergente.")
+                .setNegativeButton("Ahora no") { _, _ -> launchService() }
+                .setPositiveButton("Permitir") { _, _ -> requestOverlay(); launchService() }
+                .show()
+        } else launchService()
+    }
+
+    private fun requestOverlay() {
+        if (Settings.canDrawOverlays(this)) { setStatus("El aviso flotante ya está permitido."); return }
+        try { startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))) } catch (e: Exception) {}
+    }
+
+    private fun pick(req: Int) {
+        startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*"), req)
+    }
+
+    private fun create(req: Int, name: String) {
+        startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("text/csv").putExtra(Intent.EXTRA_TITLE, name), req)
+    }
+
+    private fun importTariffs(uri: Uri) {
+        try {
+            val text = contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() }
+            val (m, un) = parseTariffFile(text, Store.gantries)
+            Store.mergeTariffs(m)
+            setStatus("Tarifas cargadas para ${m.size} pórticos" + if (un > 0) " · $un entradas sin pórtico." else ".")
+        } catch (e: Exception) { setStatus("No se pudo leer el archivo de tarifas: ${e.message}") }
+    }
+
+    private fun exportGantries(uri: Uri) {
+        try {
+            fun q(s: String) = "\"" + s.replace("\"", "\"\"") + "\""
+            val sb = StringBuilder("\uFEFFid,ref,operador,via,rumbo,lat,lon,base,punta,saturacion,horarios\n")
+            for (g in Store.gantries) {
+                val t = Store.tariff(g.id)
+                fun n(v: Double?) = v?.let { Math.round(it).toString() } ?: ""
+                sb.append(listOf(g.id, q(g.name), q(g.op), q(g.road), g.brg ?: "", g.lat, g.lon, n(t?.base), n(t?.punta), n(t?.saturacion), q(t?.let { formatWindows(it.windows) } ?: "")).joinToString(",")).append('\n')
+            }
+            contentResolver.openOutputStream(uri)?.use { it.write(sb.toString().toByteArray(Charsets.UTF_8)) }
+            setStatus("Lista de pórticos exportada.")
+        } catch (e: Exception) { setStatus("No se pudo exportar: ${e.message}") }
     }
 
     private fun launchService() {
@@ -345,6 +504,8 @@ class MainActivity : Activity() {
                 setStatus("CSV exportado.")
             } catch (e: Exception) { setStatus("No se pudo exportar: ${e.message}") }
             REQ_IMPORT -> importTrack(uri)
+            REQ_TARIFFS -> importTariffs(uri)
+            REQ_GANTRIES_CSV -> exportGantries(uri)
         }
     }
 
@@ -358,7 +519,8 @@ class MainActivity : Activity() {
                     if (pts.isEmpty()) { ui.post { setStatus("El archivo no tiene puntos con hora y coordenadas.") }; return@thread }
                     val det = Detector(Store.gantries)
                     val found = pts.flatMap { det.feed(it) }
-                    val n = Store.addPasses(found)
+                    val n = Store.addPasses(found).size
+                    Store.saveImportedTrack(pts)
                     ui.post {
                         if (found.isNotEmpty()) viewDay = dayKey(found.last().t)
                         setStatus("${pts.size} puntos leídos · ${found.size} pórticos detectados · $n nuevos.")

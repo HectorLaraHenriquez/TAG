@@ -130,3 +130,42 @@ class DetectorTest {
         assertTrue(out.contains("\"A \"\"x\"\"\",\"Via\",\"Op\",1500"))
     }
 }
+
+class TariffTest {
+    private val zone = java.time.ZoneId.of("America/Santiago")
+    private fun at(iso: String) = java.time.LocalDateTime.parse(iso).atZone(zone).toInstant().toEpochMilli()
+    private val t = Tariff(500.0, 900.0, 1300.0, parseWindows("LV 07:30-10:00 P; LV 08:00-09:00 S; S 11:00-14:00 P"))
+
+    @Test
+    fun tarifaSegunHorario() {
+        assertEquals(500.0, t.priceAt(at("2026-11-11T06:00:00"), zone)!!, 0.0)   // miércoles, base
+        assertEquals(900.0, t.priceAt(at("2026-11-11T07:30:00"), zone)!!, 0.0)   // punta
+        assertEquals(1300.0, t.priceAt(at("2026-11-11T08:30:00"), zone)!!, 0.0)  // saturación gana a punta
+        assertEquals(500.0, t.priceAt(at("2026-11-11T10:00:00"), zone)!!, 0.0)   // fin exclusivo
+        assertEquals(900.0, t.priceAt(at("2026-11-14T12:00:00"), zone)!!, 0.0)   // sábado punta
+        assertEquals(500.0, t.priceAt(at("2026-11-15T08:30:00"), zone)!!, 0.0)   // domingo
+        assertEquals(500.0, Tariff(500.0).priceAt(at("2026-11-11T08:30:00"), zone)!!, 0.0)
+        assertEquals(500.0, Tariff(500.0, windows = t.windows).priceAt(at("2026-11-11T08:30:00"), zone)!!, 0.0)
+    }
+
+    @Test
+    fun franjasIdaYVuelta() {
+        assertEquals(t.windows, parseWindows(formatWindows(t.windows)))
+        assertTrue(parseWindows("  ").isEmpty())
+        try { parseWindows("LV 10:00-09:00 P"); org.junit.Assert.fail() } catch (e: IllegalArgumentException) {}
+        try { parseWindows("XX 10:00-11:00 P"); org.junit.Assert.fail() } catch (e: IllegalArgumentException) {}
+    }
+
+    @Test
+    fun archivoDeTarifasAsociaPorIdORef() {
+        val gs = listOf(Gantry(1, 0.0, 0.0, "P1", "Costanera Norte"), Gantry(2, 0.0, 0.0, "p1", "Autopista Central"), Gantry(3, 0.0, 0.0, "X"))
+        val json = """{"tarifas":[
+          {"id":3,"base":100},
+          {"ref":"P1","operador":"costanera","base":500,"punta":900,"horarios":"LV 07:30-10:00 P"},
+          {"ref":"NOEXISTE","base":1}]}"""
+        val (m, un) = parseTariffFile(json, gs)
+        assertEquals(1, un)
+        assertEquals(setOf(1L, 3L), m.keys)
+        assertEquals(900.0, m[1]!!.punta!!, 0.0); assertEquals(1, m[1]!!.windows.size)
+    }
+}
