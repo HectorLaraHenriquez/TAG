@@ -47,7 +47,10 @@ class MainActivity : Activity() {
     private val REQ_IMPORT = 3
     private val REQ_TARIFFS = 4
     private val REQ_GANTRIES_CSV = 5
+    private val REQ_GUIDE = 6
     private val TAB_MAP = 2
+    private lateinit var guide: ScrollView
+    private lateinit var guideCol: LinearLayout
 
     private lateinit var web: WebView
     private var mapReady = false
@@ -166,8 +169,8 @@ class MainActivity : Activity() {
             setOnEditorActionListener { _, _, _ -> saveDefPrice(); false }
         }
         setCol.addView(defPrice, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { bottomMargin = dp(14) })
-        setCol.addView(btn("Actualizar pórticos (OpenStreetMap)") { downloadGantries(null) })
-        setCol.addView(btn("Aplicar tarifas 2026 incluidas (MOP)") { applyBundledTariffs(true) })
+        setCol.addView(btn("Actualizar pórticos y tarifas") { downloadGantries(null) })
+        setCol.addView(btn("Guía de configuración") { showGuide() })
         setCol.addView(btn("Importar tarifas (JSON)") { pick(REQ_TARIFFS) })
         setCol.addView(btn("Exportar lista de pórticos (CSV)") { create(REQ_GANTRIES_CSV, "porticos.csv") })
         setCol.addView(btn("Excluir de la optimización de batería") { requestBatteryExemption() })
@@ -177,8 +180,8 @@ class MainActivity : Activity() {
         gInfo = tv("", 13f, MUT)
         setCol.addView(gInfo)
         setCol.addView(tv(
-            "Los pórticos vienen de OpenStreetMap. Las tarifas no vienen incluidas: toca el monto de un registro " +
-                "para fijar las tarifas de ese pórtico (base, punta, saturación y sus horarios), o importa un archivo de tarifas. " +
+            "Los pórticos (OpenStreetMap) y sus tarifas (tablas del MOP) se descargan solos y se actualizan una vez al día. " +
+                "Si un pórtico no tiene tarifa o está mal, toca el monto de un registro para fijarla a mano. " +
                 "Al pasar un pórtico aparece un aviso por unos segundos con el botón Descartar.", 13f, MUT,
         ).apply { setPadding(0, dp(8), 0, 0) })
 
@@ -221,13 +224,22 @@ class MainActivity : Activity() {
         sections = listOf(scroll(dayCol), scroll(histCol), mapCol, scroll(setCol))
         sections.forEach { content.addView(it) }
         root.addView(content, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
-        setContentView(root)
+        guideCol = column().apply { setPadding(dp(16), dp(24), dp(16), dp(32)) }
+        guide = ScrollView(this).apply { setBackgroundColor(BG); isClickable = true; addView(guideCol); visibility = View.GONE }
+        val top = FrameLayout(this)
+        top.addView(root); top.addView(guide)
+        setContentView(top)
         showTab(0)
+        // Versiones anteriores guardaban las tarifas incluidas como si fueran manuales: se limpian una vez.
+        if (Store.lastSync == 0L && Store.gantries.isNotEmpty()) {
+            try { Store.dropManualEqualTo(parseTariffFile(bundledTariffs(), Store.gantries).first) } catch (e: Exception) {}
+        }
+        if (!Store.onboarded) showGuide()
     }
 
     override fun onStart() {
         super.onStart(); Store.addListener(onChange)
-        if (Store.gantries.isNotEmpty() && Store.tariffCount() == 0) applyBundledTariffs(false)
+        if (System.currentTimeMillis() - Store.lastSync > 24 * 3600 * 1000L) downloadGantries(null, silent = true)
         render()
     }
     override fun onStop() { Store.removeListener(onChange); saveDefPrice(); super.onStop() }
@@ -289,7 +301,9 @@ class MainActivity : Activity() {
             days.addView(r)
         }
         if (tab == TAB_MAP) drawMap()
-        gInfo.text = if (Store.gantries.isNotEmpty()) "${Store.gantries.size} pórticos cargados · ${Store.tariffCount()} con tarifa." else "No hay pórticos cargados todavía."
+        if (guide.visibility == View.VISIBLE) renderGuide()
+        gInfo.text = if (Store.gantries.isNotEmpty()) "${Store.gantries.size} pórticos cargados · ${Store.tariffCount()} con tarifa" +
+            (if (Store.lastSync > 0) " · actualizado " + dayKey(Store.lastSync) else "") + "." else "No hay pórticos cargados todavía."
     }
 
     private fun field(hint: String, value: String, number: Boolean = true) = EditText(this).apply {
@@ -308,7 +322,9 @@ class MainActivity : Activity() {
         val box = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(20), dp(4), dp(20), 0) }
         listOf(base, punta, sat, win).forEach { box.addView(it) }
         box.addView(tv("Días: LV, S, D, SD, LS, LD. Tipo: P = punta, S = saturación. Sin horarios se cobra siempre la base.", 12f, MUT))
-        dialog().setTitle("Tarifas de $name")
+        val dlg = dialog().setTitle("Tarifas de $name")
+        if (Store.isManual(p.id)) dlg.setNeutralButton("Restablecer") { _, _ -> Store.removeManual(p.id); setStatus("Tarifa restablecida a la publicada.") }
+        dlg
             .setView(box)
             .setNegativeButton("Cancelar", null)
             .setPositiveButton("Guardar") { _, _ ->
@@ -404,37 +420,101 @@ class MainActivity : Activity() {
     private fun setStatus(msg: String) { Store.status = msg; Store.notifyChanged() }
 
     // ---------- pórticos ----------
-    private fun downloadGantries(then: (() -> Unit)?) {
+    private fun bundledTariffs(): String = assets.open("tarifas_2026.json").bufferedReader().use { it.readText() }
+
+    /**
+     * Descarga pórticos y tarifas desde los datos alojados (data/porticos.json del repositorio).
+     * Si no están disponibles, consulta OpenStreetMap y cruza con las tarifas incluidas en la app.
+     */
+    private fun downloadGantries(then: (() -> Unit)?, silent: Boolean = false) {
         if (downloading) return
         downloading = true
-        setStatus("Descargando pórticos…")
+        if (!silent) setStatus("Descargando pórticos y tarifas…")
         thread {
-            val list = Overpass.download()
+            var gs: List<Gantry>? = null
+            var ts: Map<Long, Tariff> = emptyMap()
+            val r = Remote.download()
+            if (r != null) { gs = r.gantries; ts = r.tariffs }
+            else if (!silent || Store.gantries.isEmpty()) {
+                gs = Overpass.download()
+                if (gs != null) ts = try { parseTariffFile(bundledTariffs(), gs).first } catch (e: Exception) { emptyMap() }
+            }
             ui.post {
                 downloading = false
+                val list = gs
                 if (list != null) {
-                    Store.setGantries(list)
-                    val n = applyBundledTariffs(false)
-                    setStatus("${list.size} pórticos cargados · tarifas 2026 asignadas a $n."); then?.invoke()
-                } else setStatus("No se pudieron descargar los pórticos. Revisa la conexión e intenta de nuevo.")
+                    Store.setRemote(list, ts)
+                    if (!silent) setStatus("${list.size} pórticos cargados · ${Store.tariffCount()} con tarifa.")
+                    then?.invoke()
+                } else if (!silent) setStatus("No se pudieron descargar los pórticos. Revisa la conexión e intenta de nuevo.")
             }
         }
     }
 
-    /**
-     * Asigna las tarifas incluidas en la app (tablas 2026 del MOP) a los pórticos cargados.
-     * Con [overwrite] reemplaza también las que el usuario editó; si no, solo completa las que faltan.
-     */
-    private fun applyBundledTariffs(overwrite: Boolean): Int {
-        return try {
-            val text = assets.open("tarifas_2026.json").bufferedReader().use { it.readText() }
-            val (m, _) = parseTariffFile(text, Store.gantries)
-            if (overwrite) {
-                Store.mergeTariffs(m)
-                setStatus(if (Store.gantries.isEmpty()) "Primero descarga los pórticos." else "Tarifas 2026 asignadas a ${m.size} de ${Store.gantries.size} pórticos.")
-                m.size
-            } else Store.mergeTariffsIfAbsent(m)
-        } catch (e: Exception) { setStatus("No se pudieron aplicar las tarifas: ${e.message}"); 0 }
+    // ---------- guía de primera configuración ----------
+    private fun showGuide() { guide.visibility = View.VISIBLE; renderGuide() }
+
+    private fun granted(p: String) = checkSelfPermission(p) == PackageManager.PERMISSION_GRANTED
+
+    private fun openAppSettings() {
+        try { startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))) } catch (e: Exception) {}
+    }
+
+    private fun renderGuide() {
+        val pm = getSystemService(POWER_SERVICE) as PowerManager
+        val lm = getSystemService(LOCATION_SERVICE) as android.location.LocationManager
+        val gpsOn = try { lm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER) } catch (e: Exception) { false }
+        class Step(val title: String, val desc: String, val ok: Boolean, val label: String, val action: () -> Unit)
+        val steps = ArrayList<Step>()
+        steps.add(Step("Ubicación precisa", "Para detectar los pórticos. Elige \"Precisa\" y \"Mientras se usa la app\".",
+            granted(Manifest.permission.ACCESS_FINE_LOCATION), "Permitir") {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), REQ_GUIDE)
+        })
+        if (Build.VERSION.SDK_INT >= 33) steps.add(Step("Notificaciones", "Muestra el seguimiento activo y el total del día.",
+            granted(Manifest.permission.POST_NOTIFICATIONS), "Permitir") {
+            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQ_GUIDE)
+        })
+        steps.add(Step("GPS encendido", "Activa la ubicación del teléfono.", gpsOn, "Abrir ajustes") {
+            try { startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) } catch (e: Exception) {}
+        })
+        steps.add(Step("Batería sin restricciones", "Evita que Android detenga el registro con la pantalla apagada o con otras apps abiertas.",
+            pm.isIgnoringBatteryOptimizations(packageName), "Permitir") { requestBatteryExemption() })
+        steps.add(Step("Aviso flotante", "Muestra unos segundos cada pórtico detectado, con el botón Descartar, encima de Waze u otras apps.",
+            Settings.canDrawOverlays(this), "Permitir") { requestOverlay() })
+        steps.add(Step("Pórticos y tarifas", "Se descargan de internet y se actualizan solos.",
+            Store.gantries.isNotEmpty(), "Descargar") { downloadGantries(null) })
+
+        guideCol.removeAllViews()
+        guideCol.addView(tv("Configuración inicial", 24f, TX, true))
+        guideCol.addView(tv("TAG TRACKER registra los pórticos mientras manejas, aunque la pantalla esté apagada o uses otra app. Para eso necesita lo siguiente:", 14f, MUT)
+            .apply { setPadding(0, dp(6), 0, dp(16)) })
+        steps.forEachIndexed { i, st ->
+            val r = row()
+            val c = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+            c.addView(tv((if (st.ok) "✓ " else "${i + 1}. ") + st.title, 16f, if (st.ok) ACC else TX, true))
+            c.addView(tv(st.desc, 12f, MUT))
+            r.addView(c, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+            if (!st.ok) r.addView(tv(st.label, 14f, 0xFF06281A.toInt(), true).apply {
+                background = shape(ACC); setPadding(dp(12), dp(8), dp(12), dp(8)); setOnClickListener { st.action() }
+            }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginStart = dp(8) })
+            guideCol.addView(r)
+        }
+        guideCol.addView(tv("En Xiaomi, Huawei, Oppo, Vivo y algunos Samsung hay un paso extra: en los ajustes de la app, deja Batería en \"Sin restricciones\" y activa \"Inicio automático\" si aparece.", 12f, MUT)
+            .apply { setPadding(0, dp(8), 0, dp(8)) })
+        guideCol.addView(btn("Abrir ajustes de la app") { openAppSettings() })
+        guideCol.addView(tv("Después, toca \"Iniciar seguimiento\" antes de salir: el registro sigue solo hasta que lo detengas.", 12f, MUT)
+            .apply { setPadding(0, 0, 0, dp(12)) })
+        val pending = steps.count { !it.ok }
+        guideCol.addView(btn(if (pending == 0) "Listo" else "Continuar de todos modos ($pending pendientes)", if (pending == 0) ACC else CARD,
+            if (pending == 0) 0xFF06281A.toInt() else TX, pending != 0) { Store.setOnboarded(); guide.visibility = View.GONE })
+    }
+
+    override fun onResume() { super.onResume(); if (guide.visibility == View.VISIBLE) renderGuide() }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (guide.visibility == View.VISIBLE) { if (Store.onboarded) guide.visibility = View.GONE; return }
+        super.onBackPressed()
     }
 
     private fun ensureGantries(then: () -> Unit) {
@@ -456,35 +536,18 @@ class MainActivity : Activity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQ_GUIDE) {
+            // Si Android ya no muestra el diálogo (denegado antes), se abre la ficha de la app.
+            val denied = permissions.filterIndexed { i, _ -> grantResults.getOrNull(i) != PackageManager.PERMISSION_GRANTED }
+            if (denied.isNotEmpty() && denied.none { shouldShowRequestPermissionRationale(it) }) openAppSettings()
+            renderGuide(); return
+        }
         if (requestCode != REQ_PERMS) return
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) beginTracking()
         else setStatus("Permiso de ubicación denegado.")
     }
 
-    private fun beginTracking() {
-        ensureGantries {
-            val pm = getSystemService(POWER_SERVICE) as PowerManager
-            if (!Store.batteryAsked && !pm.isIgnoringBatteryOptimizations(packageName)) {
-                Store.setBatteryAsked()
-                dialog().setTitle("Seguimiento en segundo plano")
-                    .setMessage("Para que el registro no se corte con la pantalla apagada, excluye TAG TRACKER de la optimización de batería.")
-                    .setNegativeButton("Ahora no") { _, _ -> askOverlayThenLaunch() }
-                    .setPositiveButton("Excluir") { _, _ -> requestBatteryExemption(); askOverlayThenLaunch() }
-                    .show()
-            } else askOverlayThenLaunch()
-        }
-    }
-
-    private fun askOverlayThenLaunch() {
-        if (!Store.overlayAsked && !Settings.canDrawOverlays(this)) {
-            Store.setOverlayAsked()
-            dialog().setTitle("Aviso al pasar un pórtico")
-                .setMessage("Para mostrar una ventanita con el botón Descartar encima de Waze u otras apps, permite \"Mostrar sobre otras apps\". Sin ese permiso se usa una notificación emergente.")
-                .setNegativeButton("Ahora no") { _, _ -> launchService() }
-                .setPositiveButton("Permitir") { _, _ -> requestOverlay(); launchService() }
-                .show()
-        } else launchService()
-    }
+    private fun beginTracking() { ensureGantries { launchService() } }
 
     private fun requestOverlay() {
         if (Settings.canDrawOverlays(this)) { setStatus("El aviso flotante ya está permitido."); return }

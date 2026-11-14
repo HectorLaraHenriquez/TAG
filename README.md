@@ -28,16 +28,22 @@ App Android nativa (Kotlin) que registra automáticamente, en segundo plano mien
 Inicia el seguimiento con la app abierta (Android exige eso para permitir ubicación en segundo plano desde un servicio en primer plano).
 
 ## Limitaciones
-- **Tarifas**: la app incluye las tablas 2026 del MOP (categoría autos) de Costanera Norte, Autopista Central, Vespucio Norte, Vespucio Sur y Túnel San Cristóbal, con base/punta/saturación y sus horarios (`app/src/main/assets/tarifas_2026.json`, generado por `tools/gen_tarifas.py`). Se asignan solas al descargar los pórticos.
-  - La asignación depende de que el pórtico en OpenStreetMap tenga su código (P1, PA3, 1.3…) en el nombre o ref y de la vía/concesionaria y sentido. Ajustes muestra cuántos pórticos quedaron con tarifa; los que no, usan la tarifa por defecto o se fijan a mano tocando el monto.
-  - No incluye AVO I (cobra por par entrada/salida), Acceso Nororiente ni Acceso Vial AMB.
-  - Los festivos se tratan como su día de semana. Las tarifas cambian cada enero: hay que actualizar el archivo.
-  - También se puede importar otro archivo (Ajustes → **Importar tarifas (JSON)**) y exportar la lista de pórticos con sus id/ref.
+- **Tarifas**: vienen de las tablas 2026 del MOP (categoría autos) y se descargan junto con los pórticos; no hay que cargarlas a mano.
+  - Con horarios punta/saturación: Costanera Norte, Autopista Central, Vespucio Norte, Vespucio Sur, Túnel San Cristóbal y La Pirámide (AVO).
+  - Solo tarifa normal (el MOP no publica el horario punta, o es de temporada): Acceso Nororiente, Ruta 5 Norte, Ruta 68, Ruta 78. También Ruta 5 Sur/Acceso Sur, Los Libertadores, Ruta de la Fruta y Acceso AMB.
+  - Sin tarifa: AVO I (cobra por par entrada/salida y OSM no tiene todos sus pórticos) y pórticos sin nombre en OSM. Usan la tarifa por defecto o se fijan a mano tocando el monto ("Restablecer" vuelve a la publicada).
+  - Los festivos se tratan como su día de semana. Las tarifas cambian cada enero: se actualiza `tools/gen_tarifas.py`.
 - **Falsos positivos** posibles en caleteras y vías paralelas cercanas a una autopista (si OSM no marca bien el sentido o la vía), y falsos negativos si OSM no tiene el pórtico o GPS débil (túneles).
 - Cobertura de pórticos: Región Metropolitana (bbox de la consulta).
 - Datos solo locales; no hay backend ni respaldo.
 
-## Archivo de tarifas
+## Datos alojados
+La app descarga `data/porticos.json` de este repositorio (pórticos de OpenStreetMap con su tarifa ya asignada) al primer uso y luego una vez al día. Lo genera el workflow `.github/workflows/data.yml` (cada lunes, o al cambiar `tools/`), con `tools/build_data.py` y las tablas de `tools/gen_tarifas.py`; `data/reporte.txt` muestra qué pórtico quedó con qué tarifa. Si la descarga falla, la app consulta OpenStreetMap directamente y usa las tarifas incluidas en el APK.
+
+## Primera vez
+Al abrir la app aparece una guía que pide, paso a paso: ubicación precisa, notificaciones, GPS encendido, batería sin restricciones, aviso flotante y la descarga de datos. Se puede volver a abrir en Ajustes → "Guía de configuración".
+
+## Archivo de tarifas (importación manual, opcional)
 ```json
 {"tarifas":[
   {"id":123456789, "base":500, "punta":900, "saturacion":1300, "horarios":"LV 07:30-10:00 P; LV 18:00-20:00 S"},

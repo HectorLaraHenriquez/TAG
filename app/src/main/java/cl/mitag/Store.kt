@@ -23,7 +23,12 @@ object Store {
         private set
     private var gById: Map<Long, Gantry> = emptyMap()
     private val passes = ArrayList<Pass>()
-    private val tariffs = HashMap<Long, Tariff>()
+    private val tariffs = HashMap<Long, Tariff>()         // fijadas por el usuario (tienen prioridad)
+    private val remoteTariffs = HashMap<Long, Tariff>()   // descargadas junto con los pórticos
+    @Volatile var lastSync = 0L
+        private set
+    @Volatile var onboarded = false
+        private set
 
     @Volatile var defPrice = 0.0
         private set
@@ -57,16 +62,28 @@ object Store {
                 passes.add(Pass(o.getLong("t"), o.getLong("id"), if (o.isNull("price")) null else o.getDouble("price")))
             }
         }
-        readArr("tariffs.json")?.let { a ->
-            for (i in 0 until a.length()) {
-                val o = a.getJSONObject(i)
-                fun d(k: String) = if (o.isNull(k)) null else o.getDouble(k)
-                val win = try { parseWindows(o.optString("win")) } catch (e: Exception) { emptyList() }
-                tariffs[o.getLong("id")] = Tariff(d("base"), d("punta"), d("saturacion"), win)
-            }
-        }
-        readObj("cfg.json")?.let { defPrice = it.optDouble("def", 0.0); batteryAsked = it.optBoolean("batteryAsked"); overlayAsked = it.optBoolean("overlayAsked") }
+        readTariffs("tariffs.json", tariffs)
+        readTariffs("remote_tariffs.json", remoteTariffs)
+        readObj("cfg.json")?.let { lastSync = it.optLong("lastSync"); onboarded = it.optBoolean("onboarded"); defPrice = it.optDouble("def", 0.0); batteryAsked = it.optBoolean("batteryAsked"); overlayAsked = it.optBoolean("overlayAsked") }
         inited = true
+    }
+
+    private fun readTariffs(name: String, into: HashMap<Long, Tariff>) {
+        val a = readArr(name) ?: return
+        for (i in 0 until a.length()) {
+            val o = a.getJSONObject(i)
+            fun d(k: String) = if (o.isNull(k)) null else o.getDouble(k)
+            val win = try { parseWindows(o.optString("win")) } catch (e: Exception) { emptyList() }
+            into[o.getLong("id")] = Tariff(d("base"), d("punta"), d("saturacion"), win)
+        }
+    }
+
+    private fun writeTariffs(name: String, from: Map<Long, Tariff>) {
+        val a = JSONArray()
+        for ((k, tf) in from) a.put(JSONObject().put("id", k).put("base", tf.base ?: JSONObject.NULL)
+            .put("punta", tf.punta ?: JSONObject.NULL).put("saturacion", tf.saturacion ?: JSONObject.NULL)
+            .put("win", formatWindows(tf.windows)))
+        write(name, a.toString())
     }
 
     // ---- observadores ----
@@ -78,7 +95,8 @@ object Store {
     fun gantry(id: Long): Gantry? = gById[id]
     fun snapshot(): List<Pass> = synchronized(lock) { passes.map { it.copy() } }
 
-    fun tariff(id: Long): Tariff? = synchronized(lock) { tariffs[id] }
+    fun tariff(id: Long): Tariff? = synchronized(lock) { tariffs[id] ?: remoteTariffs[id] }
+    fun isManual(id: Long): Boolean = synchronized(lock) { tariffs.containsKey(id) }
 
     /** Precio de un pórtico en el instante t (tarifa según horario, o la tarifa por defecto). */
     fun priceAt(id: Long, t: Long): Double? =
@@ -147,26 +165,33 @@ object Store {
         notifyChanged()
     }
 
-    /** Agrega tarifas solo a los pórticos que aún no tienen. Devuelve cuántas agregó. */
-    fun mergeTariffsIfAbsent(m: Map<Long, Tariff>): Int {
-        var n = 0
+    /** Pórticos y tarifas descargados. Las tarifas fijadas a mano se conservan y tienen prioridad. */
+    fun setRemote(list: List<Gantry>, remote: Map<Long, Tariff>) {
         synchronized(lock) {
-            for ((k, v) in m) if (!tariffs.containsKey(k)) { tariffs[k] = v; n++ }
-            if (n > 0) saveTariffs()
+            remoteTariffs.clear(); remoteTariffs.putAll(remote)
+            writeTariffs("remote_tariffs.json", remoteTariffs)
+            lastSync = System.currentTimeMillis(); saveCfg()
         }
-        if (n > 0) notifyChanged()
-        return n
+        setGantries(list)
     }
 
-    fun tariffCount(): Int = synchronized(lock) { gantries.count { tariffs.containsKey(it.id) } }
-
-    private fun saveTariffs() {
-        val a = JSONArray()
-        for ((k, tf) in tariffs) a.put(JSONObject().put("id", k).put("base", tf.base ?: JSONObject.NULL)
-            .put("punta", tf.punta ?: JSONObject.NULL).put("saturacion", tf.saturacion ?: JSONObject.NULL)
-            .put("win", formatWindows(tf.windows)))
-        write("tariffs.json", a.toString())
+    /** Quita las tarifas manuales que son idénticas a las indicadas (migración desde versiones anteriores). */
+    fun dropManualEqualTo(m: Map<Long, Tariff>) {
+        synchronized(lock) {
+            val n = tariffs.size
+            tariffs.entries.removeAll { m[it.key] == it.value }
+            if (tariffs.size != n) saveTariffs()
+        }
     }
+
+    fun removeManual(id: Long) {
+        synchronized(lock) { if (tariffs.remove(id) != null) saveTariffs() }
+        notifyChanged()
+    }
+
+    fun tariffCount(): Int = synchronized(lock) { gantries.count { tariffs.containsKey(it.id) || remoteTariffs.containsKey(it.id) } }
+
+    private fun saveTariffs() = writeTariffs("tariffs.json", tariffs)
 
     // ---- recorrido del día (un CSV por día: t,lat,lon) ----
     private fun trackFile(day: String) = File(File(dir, "tracks").apply { mkdirs() }, "$day.csv")
@@ -201,6 +226,7 @@ object Store {
     fun setDefPrice(v: Double) { defPrice = v; saveCfg(); notifyChanged() }
     fun setBatteryAsked() { batteryAsked = true; saveCfg() }
     fun setOverlayAsked() { overlayAsked = true; saveCfg() }
+    fun setOnboarded() { onboarded = true; saveCfg() }
 
     fun clearPasses() {
         synchronized(lock) { passes.clear(); savePasses() }
@@ -219,7 +245,7 @@ object Store {
         for (p in passes) a.put(JSONObject().put("t", p.t).put("id", p.id).put("price", p.price ?: JSONObject.NULL))
         write("passes.json", a.toString())
     }
-    private fun saveCfg() = write("cfg.json", JSONObject().put("def", defPrice).put("batteryAsked", batteryAsked).put("overlayAsked", overlayAsked).toString())
+    private fun saveCfg() = write("cfg.json", JSONObject().put("def", defPrice).put("batteryAsked", batteryAsked).put("overlayAsked", overlayAsked).put("lastSync", lastSync).put("onboarded", onboarded).toString())
     private fun write(name: String, text: String) {
         try {
             val tmp = File(dir, "$name.tmp")

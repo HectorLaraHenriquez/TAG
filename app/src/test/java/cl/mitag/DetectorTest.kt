@@ -207,3 +207,27 @@ class TariffFileTest {
         assertTrue(n > 90)
     }
 }
+
+class RemoteDataTest {
+    @Test
+    fun leeDatosAlojados() {
+        val json = """{"version":1,"generado":"2026-11-14T00:00:00Z","porticos":[
+          {"id":1,"lat":-33.4,"lon":-70.6,"name":"P01 Gran Vía","op":"","road":"Costanera Norte","brg":122,
+           "t":{"base":449.4,"punta":865.2,"saturacion":1310.4,"horarios":"LV 12:00-13:00 P; LV 13:00-14:00 S"}},
+          {"id":2,"lat":-33.5,"lon":-70.7,"name":"","op":"","road":"","brg":null}]}"""
+        val d = parseRemoteData(json)
+        assertEquals(2, d.gantries.size)
+        assertEquals(122, d.gantries[0].brg); assertNull(d.gantries[1].brg)
+        assertEquals(setOf(1L), d.tariffs.keys)
+        assertEquals(2, d.tariffs[1]!!.windows.size)
+    }
+
+    @Test
+    fun cerosALaIzquierdaYNombre() {
+        val gs = listOf(Gantry(1, 0.0, 0.0, "P01 Gran Vía - Puente La Dehesa", "", "Autopista Costanera Norte", 122),
+            Gantry(2, 0.0, 0.0, "Peaje Gabriela Oriente", "", "", 333))
+        val (m, _) = parseTariffFile("""{"tarifas":[{"ref":"P1","via":["Costanera Norte"],"rumbo":90,"base":1},
+            {"nombre":"Peaje Gabriela","base":2}]}""", gs)
+        assertEquals(mapOf(1L to 1.0, 2L to 2.0), m.mapValues { it.value.base })
+    }
+}

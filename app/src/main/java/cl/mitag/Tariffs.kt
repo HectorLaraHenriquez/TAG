@@ -91,6 +91,8 @@ private fun refKeys(name: String): Set<String> {
     keys.add(toks.joinToString(""))
     keys.addAll(toks)
     for (i in 0 until toks.size - 1) keys.add(toks[i] + toks[i + 1])
+    // "P01" equivale a "P1"
+    keys.addAll(keys.map { it.replace(Regex("^([A-Z]+)0+(?=\\d)"), "$1") })
     return keys
 }
 
@@ -124,18 +126,22 @@ fun parseTariffFile(json: String, gantries: List<Gantry>): Pair<Map<Long, Tariff
         val o = arr.getJSONObject(i)
         fun d(k: String) = if (o.has(k) && !o.isNull(k)) o.getDouble(k) else null
         val t = Tariff(d("base"), d("punta"), d("saturacion"), parseWindows(o.optString("horarios")))
+        val forced = o.optJSONArray("ids")?.let { a -> List(a.length()) { a.getLong(it) } } ?: emptyList()
+        val nombre = fold(o.optString("nombre").trim())
         val ids: List<Long> = if (o.has("id")) {
             listOfNotNull(byId[o.getLong("id")]?.id)
+        } else if (forced.isNotEmpty()) {
+            forced.filter { byId.containsKey(it) }
         } else {
             val ref = o.optString("ref").trim()
             val op = fold(o.optString("operador").trim())
             val vias = o.optJSONArray("via")?.let { a -> List(a.length()) { fold(a.getString(it)) } } ?: emptyList()
             val rumbo = d("rumbo")
-            if (ref.isEmpty() && op.isEmpty() && vias.isEmpty()) emptyList() else gantries.filter { g ->
+            if (ref.isEmpty() && op.isEmpty() && vias.isEmpty() && nombre.isEmpty()) emptyList() else gantries.filter { g ->
                 val place = (op.isEmpty() && vias.isEmpty()) ||
                     (op.isNotEmpty() && fold(g.op).contains(op)) || vias.any { fold(g.road).contains(it) }
                 val gb = g.brg
-                place && (ref.isEmpty() || refMatches(ref, g.name)) &&
+                place && (nombre.isEmpty() || fold(g.name).contains(nombre)) && (ref.isEmpty() || refMatches(ref, g.name)) &&
                     (rumbo == null || gb == null || angDiff(gb.toDouble(), rumbo) <= RUMBO_TOL)
             }.map { it.id }
         }
