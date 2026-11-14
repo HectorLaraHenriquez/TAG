@@ -162,6 +162,7 @@ class MainActivity : Activity() {
         }
         setCol.addView(defPrice, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { bottomMargin = dp(14) })
         setCol.addView(btn("Actualizar pórticos (OpenStreetMap)") { downloadGantries(null) })
+        setCol.addView(btn("Aplicar tarifas 2026 incluidas (MOP)") { applyBundledTariffs(true) })
         setCol.addView(btn("Importar tarifas (JSON)") { pick(REQ_TARIFFS) })
         setCol.addView(btn("Exportar lista de pórticos (CSV)") { create(REQ_GANTRIES_CSV, "porticos.csv") })
         setCol.addView(btn("Excluir de la optimización de batería") { requestBatteryExemption() })
@@ -206,7 +207,11 @@ class MainActivity : Activity() {
         showTab(0)
     }
 
-    override fun onStart() { super.onStart(); Store.addListener(onChange); render() }
+    override fun onStart() {
+        super.onStart(); Store.addListener(onChange)
+        if (Store.gantries.isNotEmpty() && Store.tariffCount() == 0) applyBundledTariffs(false)
+        render()
+    }
     override fun onStop() { Store.removeListener(onChange); saveDefPrice(); super.onStop() }
 
     private fun saveDefPrice() {
@@ -266,7 +271,7 @@ class MainActivity : Activity() {
             days.addView(r)
         }
         if (tab == TAB_MAP) drawMap()
-        gInfo.text = if (Store.gantries.isNotEmpty()) "${Store.gantries.size} pórticos cargados." else "No hay pórticos cargados todavía."
+        gInfo.text = if (Store.gantries.isNotEmpty()) "${Store.gantries.size} pórticos cargados · ${Store.tariffCount()} con tarifa." else "No hay pórticos cargados todavía."
     }
 
     private fun field(hint: String, value: String, number: Boolean = true) = EditText(this).apply {
@@ -374,10 +379,28 @@ class MainActivity : Activity() {
             ui.post {
                 downloading = false
                 if (list != null) {
-                    Store.setGantries(list); setStatus("${list.size} pórticos cargados."); then?.invoke()
+                    Store.setGantries(list)
+                    val n = applyBundledTariffs(false)
+                    setStatus("${list.size} pórticos cargados · tarifas 2026 asignadas a $n."); then?.invoke()
                 } else setStatus("No se pudieron descargar los pórticos. Revisa la conexión e intenta de nuevo.")
             }
         }
+    }
+
+    /**
+     * Asigna las tarifas incluidas en la app (tablas 2026 del MOP) a los pórticos cargados.
+     * Con [overwrite] reemplaza también las que el usuario editó; si no, solo completa las que faltan.
+     */
+    private fun applyBundledTariffs(overwrite: Boolean): Int {
+        return try {
+            val text = assets.open("tarifas_2026.json").bufferedReader().use { it.readText() }
+            val (m, _) = parseTariffFile(text, Store.gantries)
+            if (overwrite) {
+                Store.mergeTariffs(m)
+                setStatus(if (Store.gantries.isEmpty()) "Primero descarga los pórticos." else "Tarifas 2026 asignadas a ${m.size} de ${Store.gantries.size} pórticos.")
+                m.size
+            } else Store.mergeTariffsIfAbsent(m)
+        } catch (e: Exception) { setStatus("No se pudieron aplicar las tarifas: ${e.message}"); 0 }
     }
 
     private fun ensureGantries(then: () -> Unit) {

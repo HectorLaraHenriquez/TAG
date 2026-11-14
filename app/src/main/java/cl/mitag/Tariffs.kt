@@ -80,12 +80,39 @@ fun formatWindows(ws: List<Window>): String = ws.joinToString("; ") { w ->
     "%s %02d:%02d-%02d:%02d %s".format(d, w.from / 60, w.from % 60, w.to / 60, w.to % 60, w.band)
 }
 
+private fun fold(s: String): String =
+    java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD).replace(Regex("\\p{M}+"), "").uppercase()
+
+/** Códigos de pórtico presentes en un nombre: "Pórtico PA 32" -> [PORTICOPA32, PA32, 32, ...]. */
+private fun refKeys(name: String): Set<String> {
+    val f = fold(name)
+    val toks = f.split(Regex("[^A-Z0-9.]+")).filter { it.isNotEmpty() }
+    val keys = HashSet<String>()
+    keys.add(toks.joinToString(""))
+    keys.addAll(toks)
+    for (i in 0 until toks.size - 1) keys.add(toks[i] + toks[i + 1])
+    return keys
+}
+
+private fun refMatches(ref: String, name: String): Boolean {
+    val r = fold(ref).replace(Regex("[^A-Z0-9.]"), "")
+    if (r.isEmpty()) return false
+    val keys = refKeys(name)
+    if (r in keys) return true
+    // "P2.1" también calza con "P21" (solo si el código tiene letras, para no confundir "1.3" con "13")
+    return r.any { it.isLetter() } && r.contains('.') && r.replace(".", "") in keys.map { it.replace(".", "") }
+}
+
+const val RUMBO_TOL = 100.0
+
 /**
  * Lee un archivo de tarifas y lo asocia a los pórticos cargados.
- * Formato: {"tarifas":[{"id":123, "ref":"P1", "operador":"Costanera", "base":500, "punta":900,
- * "saturacion":1300, "horarios":"LV 07:30-10:00 P; LV 18:00-20:00 S"}]}
- * Se asocia por "id" (id del nodo en OSM) o, si no viene, por "ref" (nombre/ref del pórtico,
- * sin distinguir mayúsculas) y opcionalmente "operador" (texto contenido en la concesionaria).
+ * Formato: {"tarifas":[{"id":123, "ref":"P1", "operador":"Costanera", "via":["Kennedy"], "rumbo":270,
+ * "base":500, "punta":900, "saturacion":1300, "horarios":"LV 07:30-10:00 P; LV 18:00-20:00 S"}]}
+ * Cada entrada se asocia por "id" (id del nodo en OSM) o, si no viene, por:
+ *  - "ref": código del pórtico, buscado en el nombre/ref del pórtico en OSM;
+ *  - "operador" / "via": texto contenido en la concesionaria o en el nombre de la vía (basta uno);
+ *  - "rumbo": sentido de circulación en grados (±100°), para distinguir las dos calzadas.
  * Devuelve las tarifas por id de pórtico y la cantidad de entradas que no calzaron con ninguno.
  */
 fun parseTariffFile(json: String, gantries: List<Gantry>): Pair<Map<Long, Tariff>, Int> {
@@ -101,9 +128,15 @@ fun parseTariffFile(json: String, gantries: List<Gantry>): Pair<Map<Long, Tariff
             listOfNotNull(byId[o.getLong("id")]?.id)
         } else {
             val ref = o.optString("ref").trim()
-            val op = o.optString("operador").trim()
-            if (ref.isEmpty()) emptyList() else gantries.filter {
-                it.name.trim().equals(ref, ignoreCase = true) && (op.isEmpty() || it.op.contains(op, ignoreCase = true))
+            val op = fold(o.optString("operador").trim())
+            val vias = o.optJSONArray("via")?.let { a -> List(a.length()) { fold(a.getString(it)) } } ?: emptyList()
+            val rumbo = d("rumbo")
+            if (ref.isEmpty() && op.isEmpty() && vias.isEmpty()) emptyList() else gantries.filter { g ->
+                val place = (op.isEmpty() && vias.isEmpty()) ||
+                    (op.isNotEmpty() && fold(g.op).contains(op)) || vias.any { fold(g.road).contains(it) }
+                val gb = g.brg
+                place && (ref.isEmpty() || refMatches(ref, g.name)) &&
+                    (rumbo == null || gb == null || angDiff(gb.toDouble(), rumbo) <= RUMBO_TOL)
             }.map { it.id }
         }
         if (ids.isEmpty()) unmatched++

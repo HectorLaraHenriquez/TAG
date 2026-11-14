@@ -169,3 +169,41 @@ class TariffTest {
         assertEquals(900.0, m[1]!!.punta!!, 0.0); assertEquals(1, m[1]!!.windows.size)
     }
 }
+
+class TariffFileTest {
+    private val gs = listOf(
+        Gantry(1, 0.0, 0.0, "Pórtico P2.1", "Sociedad Concesionaria Costanera Norte", "Costanera Norte", 265),
+        Gantry(2, 0.0, 0.0, "P21", "", "Avenida Presidente Kennedy", 80),
+        Gantry(3, 0.0, 0.0, "PA 32", "", "Ruta 5", 185),
+        Gantry(4, 0.0, 0.0, "P1", "Vespucio Norte Express", "Américo Vespucio", 10),
+        Gantry(5, 0.0, 0.0, "1.3", "", "Autopista Vespucio Sur", 120),
+        Gantry(6, 0.0, 0.0, "", "", "Túnel San Cristóbal", 175),
+        Gantry(7, 0.0, 0.0, "P13", "", "Américo Vespucio", 270),
+    )
+
+    @Test
+    fun asociaPorRefViaYRumbo() {
+        val json = """{"tarifas":[
+          {"ref":"P2.1","operador":"Costanera Norte","via":["Kennedy"],"rumbo":270,"base":1},
+          {"ref":"P2.1","operador":"Costanera Norte","via":["Kennedy"],"rumbo":90,"base":2},
+          {"ref":"PA32","via":["Ruta 5"],"rumbo":180,"base":3},
+          {"ref":"P1","operador":"Vespucio Norte","via":["Vespucio"],"rumbo":0,"base":4},
+          {"ref":"1.3","operador":"Vespucio Sur","via":["Vespucio"],"rumbo":135,"base":5},
+          {"operador":"San Cristóbal","via":["San Cristobal"],"rumbo":180,"base":6},
+          {"operador":"San Cristóbal","via":["San Cristobal"],"rumbo":0,"base":7}]}"""
+        val (m, un) = parseTariffFile(json, gs)
+        assertEquals(1, un)   // el túnel en sentido norte no tiene pórtico en la lista
+        assertEquals(mapOf(1L to 1.0, 2L to 2.0, 3L to 3.0, 4L to 4.0, 5L to 5.0, 6L to 6.0), m.mapValues { it.value.base })
+    }
+
+    @Test
+    fun archivoIncluidoEsValido() {
+        val f = listOf("src/main/assets/tarifas_2026.json", "app/src/main/assets/tarifas_2026.json", "/home/user/TAG/app/src/main/assets/tarifas_2026.json")
+            .map { java.io.File(it) }.first { it.exists() }
+        val text = f.readText()
+        val n = org.json.JSONObject(text).getJSONArray("tarifas").length()
+        val (_, un) = parseTariffFile(text, emptyList())   // valida horarios; sin pórticos nada calza
+        assertEquals(n, un)
+        assertTrue(n > 90)
+    }
+}

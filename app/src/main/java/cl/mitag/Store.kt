@@ -147,6 +147,19 @@ object Store {
         notifyChanged()
     }
 
+    /** Agrega tarifas solo a los pórticos que aún no tienen. Devuelve cuántas agregó. */
+    fun mergeTariffsIfAbsent(m: Map<Long, Tariff>): Int {
+        var n = 0
+        synchronized(lock) {
+            for ((k, v) in m) if (!tariffs.containsKey(k)) { tariffs[k] = v; n++ }
+            if (n > 0) saveTariffs()
+        }
+        if (n > 0) notifyChanged()
+        return n
+    }
+
+    fun tariffCount(): Int = synchronized(lock) { gantries.count { tariffs.containsKey(it.id) } }
+
     private fun saveTariffs() {
         val a = JSONArray()
         for ((k, tf) in tariffs) a.put(JSONObject().put("id", k).put("base", tf.base ?: JSONObject.NULL)

@@ -1,0 +1,1386 @@
+{
+ "vigencia": "2026",
+ "fuente": "https://concesiones.mop.gob.cl/peajes-y-porticos/",
+ "nota": "Categoría 1 y 4. No incluye AVO I (cobro por par entrada/salida), Acceso Nororiente ni Acceso Vial AMB.",
+ "tarifas": [
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 149.8,
+   "ref": "P0",
+   "rumbo": 270,
+   "punta": 288.4,
+   "saturacion": 436.8,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 17:30-19:30 P; LV 07:30-08:30 S; LV 13:00-14:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 449.4,
+   "ref": "P1",
+   "rumbo": 270,
+   "punta": 865.2,
+   "saturacion": 1310.4,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 17:30-19:30 P; LV 07:30-08:30 S; LV 13:00-14:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 425.86,
+   "ref": "P2.1",
+   "rumbo": 270,
+   "punta": 819.88,
+   "saturacion": 1241.76,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 17:30-19:30 P; LV 07:30-08:30 S; LV 13:00-14:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 264.29,
+   "ref": "P2.2",
+   "rumbo": 270,
+   "punta": 508.82,
+   "saturacion": 770.64,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 17:30-19:30 P; LV 07:30-08:30 S; LV 13:00-14:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 233.79,
+   "ref": "SB",
+   "punta": 450.11,
+   "saturacion": 681.72,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 11:00-13:00 P; LV 14:00-17:00 P; LV 19:30-21:00 P; LV 07:30-08:30 S; LV 13:00-14:00 S; LV 17:00-19:30 S; S 11:30-15:00 P; S 16:30-17:00 P; S 18:30-19:30 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 719.04,
+   "ref": "P3",
+   "rumbo": 270,
+   "punta": 1384.32,
+   "saturacion": 2096.64,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 11:00-13:00 P; LV 14:00-17:00 P; LV 19:30-21:00 P; LV 07:30-08:30 S; LV 13:00-14:00 S; LV 17:00-19:30 S; S 11:30-15:00 P; S 16:30-17:00 P; S 18:30-19:30 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 225.77,
+   "ref": "EP",
+   "punta": 434.66,
+   "saturacion": 658.32,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 11:00-13:00 P; LV 14:00-17:00 P; LV 19:30-21:00 P; LV 07:30-08:30 S; LV 13:00-14:00 S; LV 17:00-19:30 S; S 11:30-15:00 P; S 16:30-17:00 P; S 18:30-19:30 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 119.41,
+   "ref": "EV",
+   "punta": 229.89,
+   "saturacion": 348.19,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 11:00-13:00 P; LV 14:00-17:00 P; LV 19:30-21:00 P; LV 07:30-08:30 S; LV 13:00-14:00 S; LV 17:00-19:30 S; S 11:30-15:00 P; S 16:30-17:00 P; S 18:30-19:30 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 715.83,
+   "ref": "P5",
+   "rumbo": 270,
+   "punta": 1378.14,
+   "horarios": "LV 12:00-15:00 P; LV 18:00-21:00 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 239.68,
+   "ref": "P6.1",
+   "rumbo": 270,
+   "punta": 461.44,
+   "horarios": "LV 12:00-15:00 P; LV 18:00-21:00 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 364.87,
+   "ref": "P6.2",
+   "rumbo": 270,
+   "punta": 702.46,
+   "horarios": "LV 12:00-15:00 P; LV 18:00-21:00 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 535.0,
+   "ref": "P9",
+   "rumbo": 270,
+   "punta": 1030.0,
+   "horarios": "LV 12:00-15:00 P; LV 18:00-21:00 P; S 11:00-11:30 P; S 11:30-15:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 250.21,
+   "ref": "P7",
+   "rumbo": 270,
+   "punta": 481.73,
+   "saturacion": 729.61,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 17:30-19:00 P; LV 07:30-08:30 S; LV 13:00-14:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 583.84,
+   "ref": "P8.0",
+   "rumbo": 270,
+   "punta": 1124.03,
+   "saturacion": 1702.42,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 17:30-19:00 P; LV 07:30-08:30 S; LV 13:00-14:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 583.84,
+   "ref": "P8.1",
+   "rumbo": 270,
+   "punta": 1124.03,
+   "saturacion": 1702.42,
+   "horarios": "LV 07:00-07:30 P; LV 08:30-10:00 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 17:30-19:00 P; LV 07:30-08:30 S; LV 13:00-14:00 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 583.84,
+   "ref": "P8.3",
+   "rumbo": 90,
+   "punta": 1124.03,
+   "saturacion": 1702.42,
+   "horarios": "LV 07:00-09:30 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 15:30-16:00 P; LV 16:30-18:00 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:00-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 583.84,
+   "ref": "P8.2",
+   "rumbo": 90,
+   "punta": 1124.03,
+   "saturacion": 1702.42,
+   "horarios": "LV 07:00-09:30 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 15:30-16:00 P; LV 16:30-18:00 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:00-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 583.84,
+   "ref": "P8.1",
+   "rumbo": 90,
+   "punta": 1124.03,
+   "saturacion": 1702.42,
+   "horarios": "LV 07:00-09:30 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 15:30-16:00 P; LV 16:30-18:00 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:00-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 583.84,
+   "ref": "P8.0",
+   "rumbo": 90,
+   "punta": 1124.03,
+   "saturacion": 1702.42,
+   "horarios": "LV 07:00-09:30 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 15:30-16:00 P; LV 16:30-18:00 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:00-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 250.21,
+   "ref": "P7",
+   "rumbo": 90,
+   "punta": 481.73,
+   "saturacion": 729.61,
+   "horarios": "LV 07:00-09:30 P; LV 12:00-13:00 P; LV 14:00-15:00 P; LV 15:30-16:00 P; LV 16:30-18:00 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:00-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 535.0,
+   "ref": "P9",
+   "rumbo": 90,
+   "punta": 1030.0,
+   "horarios": "LV 07:00-10:00 P; LV 12:00-15:00 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 364.87,
+   "ref": "P6.2",
+   "rumbo": 90,
+   "punta": 702.46,
+   "saturacion": 1063.92,
+   "horarios": "LV 07:00-07:30 P; LV 09:30-10:00 P; LV 12:00-15:00 P; LV 18:00-18:30 P; LV 07:30-09:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 239.68,
+   "ref": "P6.1",
+   "rumbo": 90,
+   "punta": 461.44,
+   "saturacion": 698.88,
+   "horarios": "LV 07:00-07:30 P; LV 09:30-10:00 P; LV 12:00-15:00 P; LV 18:00-18:30 P; LV 07:30-09:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 715.83,
+   "ref": "P5",
+   "rumbo": 90,
+   "punta": 1378.14,
+   "saturacion": 2087.28,
+   "horarios": "LV 07:00-07:30 P; LV 09:30-10:00 P; LV 12:00-15:00 P; LV 18:00-18:30 P; LV 07:30-09:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 413.02,
+   "ref": "P4",
+   "rumbo": 90,
+   "punta": 795.16,
+   "saturacion": 1204.32,
+   "horarios": "LV 14:00-16:30 P; LV 19:30-21:00 P; LV 07:00-14:00 S; LV 16:30-19:30 S; S 08:30-15:30 P; S 18:30-19:00 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 306.02,
+   "ref": "P3",
+   "rumbo": 90,
+   "punta": 589.16,
+   "saturacion": 892.32,
+   "horarios": "LV 14:00-16:30 P; LV 19:30-21:00 P; LV 07:00-14:00 S; LV 16:30-19:30 S; S 08:30-15:30 P; S 18:30-19:00 P",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 264.29,
+   "ref": "P2.2",
+   "rumbo": 90,
+   "punta": 508.82,
+   "saturacion": 770.64,
+   "horarios": "LV 12:00-13:00 P; LV 14:00-15:00 P; LV 18:00-18:30 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:30-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 425.86,
+   "ref": "P2.1",
+   "rumbo": 90,
+   "punta": 819.88,
+   "saturacion": 1241.76,
+   "horarios": "LV 12:00-13:00 P; LV 14:00-15:00 P; LV 18:00-18:30 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:30-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 449.4,
+   "ref": "P1",
+   "rumbo": 90,
+   "punta": 865.2,
+   "saturacion": 1310.4,
+   "horarios": "LV 12:00-13:00 P; LV 14:00-15:00 P; LV 18:00-18:30 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:30-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Costanera Norte",
+   "via": [
+    "Costanera Norte",
+    "Kennedy"
+   ],
+   "base": 149.8,
+   "ref": "P0",
+   "rumbo": 90,
+   "punta": 288.4,
+   "saturacion": 436.8,
+   "horarios": "LV 12:00-13:00 P; LV 14:00-15:00 P; LV 18:00-18:30 P; LV 19:30-21:00 P; LV 13:00-14:00 S; LV 18:30-19:30 S",
+   "fuente": "MOP COSTANERA-NORTE.pdf (2026/07)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 868.37,
+   "ref": "PA2",
+   "rumbo": 0,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 585.09,
+   "ref": "PA3",
+   "rumbo": 0,
+   "punta": 1170.18,
+   "saturacion": 1755.28,
+   "horarios": "LV 07:00-07:30 S; LV 06:30-07:00 P; LV 07:30-08:00 P; D 18:00-20:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 334.63,
+   "ref": "PA5",
+   "rumbo": 0,
+   "punta": 669.27,
+   "saturacion": 1003.9,
+   "horarios": "LV 07:00-08:00 S; LV 06:30-07:00 P; LV 08:00-09:30 P; D 18:00-20:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 452.06,
+   "ref": "PA7",
+   "rumbo": 0,
+   "punta": 904.14,
+   "horarios": "LV 07:30-09:30 P; D 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 392.83,
+   "ref": "PA30",
+   "rumbo": 0,
+   "punta": 785.66,
+   "horarios": "LV 07:30-09:30 P; S 07:30-09:30 P; D 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 285.79,
+   "ref": "PA10",
+   "rumbo": 0,
+   "punta": 571.58,
+   "horarios": "LV 07:30-09:30 P; S 07:30-09:30 P; D 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 368.93,
+   "ref": "PA31",
+   "rumbo": 0,
+   "punta": 737.86,
+   "saturacion": 1106.79,
+   "horarios": "LV 08:30-09:00 S; LV 06:30-08:30 P; LV 09:00-14:00 P; LV 17:00-19:00 P; S 10:00-13:00 P; D 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 181.86,
+   "ref": "PA13",
+   "rumbo": 0,
+   "punta": 363.73,
+   "saturacion": 545.6,
+   "horarios": "LV 08:30-09:00 S; LV 06:30-08:30 P; LV 09:00-14:00 P; LV 17:00-19:00 P; S 10:00-13:00 P; D 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 425.04,
+   "ref": "PA16",
+   "rumbo": 0,
+   "punta": 850.1,
+   "horarios": "LV 07:30-09:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 462.46,
+   "ref": "PA17",
+   "rumbo": 0,
+   "punta": 924.92,
+   "horarios": "LV 07:00-10:00 P; LV 10:30-15:00 P; LV 16:30-19:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 462.46,
+   "ref": "PA18",
+   "rumbo": 180,
+   "punta": 924.92,
+   "saturacion": 1387.38,
+   "horarios": "LV 17:30-18:00 S; LV 07:00-08:30 P; LV 09:30-10:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 425.04,
+   "ref": "PA15",
+   "rumbo": 180,
+   "punta": 850.1,
+   "horarios": "LV 07:30-08:00 P; LV 08:30-09:00 P; LV 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 181.86,
+   "ref": "PA14",
+   "rumbo": 180,
+   "punta": 363.73,
+   "saturacion": 545.6,
+   "horarios": "LV 10:00-10:30 S; LV 11:00-11:30 S; LV 15:30-16:00 S; LV 19:30-20:00 S; LV 07:00-08:30 P; LV 09:00-09:30 P; LV 15:00-15:30 P; LV 16:00-16:30 P; LV 18:30-19:30 P; LV 20:00-20:30 P; S 11:00-15:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 368.93,
+   "ref": "PA12",
+   "rumbo": 180,
+   "punta": 737.86,
+   "saturacion": 1106.79,
+   "horarios": "LV 10:00-10:30 S; LV 11:00-11:30 S; LV 15:30-16:00 S; LV 19:30-20:00 S; LV 07:00-08:30 P; LV 09:00-09:30 P; LV 15:00-15:30 P; LV 16:00-16:30 P; LV 18:30-19:30 P; LV 20:00-20:30 P; S 11:00-15:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 285.79,
+   "ref": "PA11",
+   "rumbo": 180,
+   "punta": 571.58,
+   "horarios": "S 11:00-15:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 392.83,
+   "ref": "PA9",
+   "rumbo": 180,
+   "punta": 785.66,
+   "horarios": "LV 18:00-20:30 P; S 11:00-15:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 452.06,
+   "ref": "PA8",
+   "rumbo": 180,
+   "punta": 904.14,
+   "horarios": "LV 18:00-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 176.67,
+   "ref": "PA32",
+   "rumbo": 180,
+   "punta": 353.34,
+   "saturacion": 530.01,
+   "horarios": "LV 17:30-19:30 S; LV 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 157.96,
+   "ref": "PA6",
+   "rumbo": 180,
+   "punta": 315.93,
+   "saturacion": 473.89,
+   "horarios": "LV 17:30-19:30 S; LV 10:00-10:30 P; LV 19:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 455.18,
+   "ref": "PA37",
+   "rumbo": 180,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 129.9,
+   "ref": "PA4",
+   "rumbo": 180,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 868.37,
+   "ref": "PA1",
+   "rumbo": 180,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 412.57,
+   "ref": "PA19",
+   "rumbo": 0,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 512.34,
+   "ref": "PA21",
+   "rumbo": 0,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 287.86,
+   "ref": "PA23",
+   "rumbo": 0,
+   "punta": 575.74,
+   "horarios": "LV 07:00-10:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 421.93,
+   "ref": "PA25",
+   "rumbo": 0,
+   "punta": 843.86,
+   "horarios": "LV 07:00-09:30 P; LV 14:30-15:00 P; LV 19:00-19:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 512.34,
+   "ref": "PA28",
+   "rumbo": 0,
+   "punta": 1024.69,
+   "saturacion": 1537.04,
+   "horarios": "LV 07:30-08:30 S; LV 07:00-07:30 P; LV 08:30-09:30 P; LV 10:00-10:30 P; LV 18:00-19:00 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 512.34,
+   "ref": "PA29",
+   "rumbo": 180,
+   "punta": 1024.69,
+   "horarios": "LV 17:00-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 421.93,
+   "ref": "PA26",
+   "rumbo": 180,
+   "punta": 843.86,
+   "horarios": "LV 18:30-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 287.86,
+   "ref": "PA24",
+   "rumbo": 180,
+   "punta": 575.74,
+   "saturacion": 863.61,
+   "horarios": "LV 18:30-19:00 S; LV 18:00-18:30 P; LV 19:00-20:30 P",
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 512.34,
+   "ref": "PA22",
+   "rumbo": 180,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Autopista Central",
+   "via": [
+    "Autopista Central",
+    "Ruta 5",
+    "Panamericana",
+    "Norte-Sur",
+    "Norte Sur",
+    "General Velásquez"
+   ],
+   "base": 412.57,
+   "ref": "PA20",
+   "rumbo": 180,
+   "fuente": "MOP AUTOPISTA-CENTRAL.pdf (2026/03)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 140.68,
+   "ref": "P15",
+   "rumbo": 270,
+   "punta": 281.37,
+   "saturacion": 422.05,
+   "horarios": "LV 17:30-18:30 P; LV 19:00-22:00 P; S 13:00-15:00 P; S 20:00-22:00 P; LV 18:30-19:00 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 412.0,
+   "ref": "P13",
+   "rumbo": 270,
+   "punta": 824.01,
+   "saturacion": 1236.01,
+   "horarios": "LV 17:30-18:30 P; LV 19:00-22:00 P; S 13:00-15:00 P; S 20:00-22:00 P; LV 18:30-19:00 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 301.47,
+   "ref": "P11",
+   "rumbo": 270,
+   "punta": 602.93,
+   "horarios": "LV 07:30-09:00 P; LV 17:30-19:00 P; S 13:00-15:00 P; S 20:00-22:00 P; D 21:00-23:00 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 653.18,
+   "ref": "P8",
+   "rumbo": 270,
+   "punta": 1306.36,
+   "horarios": "LV 07:30-09:30 P; S 13:00-15:00 P; S 20:00-22:00 P; D 21:00-23:00 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 452.2,
+   "ref": "P6",
+   "rumbo": 225,
+   "punta": 904.4,
+   "horarios": "LV 07:30-09:30 P; LV 17:30-18:30 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 351.71,
+   "ref": "P4",
+   "rumbo": 180,
+   "punta": 703.42,
+   "saturacion": 1055.13,
+   "horarios": "LV 15:30-16:30 P; LV 19:30-20:00 P; S 11:00-14:00 P; S 19:00-22:00 P; LV 16:30-19:30 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 211.03,
+   "ref": "P2",
+   "rumbo": 180,
+   "punta": 422.05,
+   "saturacion": 633.08,
+   "horarios": "LV 15:30-17:30 P; LV 19:30-20:00 P; LV 17:30-19:30 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 391.91,
+   "ref": "P17",
+   "rumbo": 180,
+   "punta": 783.81,
+   "saturacion": 1175.72,
+   "horarios": "LV 15:30-17:30 P; LV 19:30-20:00 P; LV 17:30-19:30 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 120.59,
+   "ref": "P1",
+   "rumbo": 0,
+   "punta": 241.17,
+   "saturacion": 361.76,
+   "horarios": "LV 06:30-07:00 P; LV 10:00-12:30 P; LV 07:00-10:00 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 482.35,
+   "ref": "P16",
+   "rumbo": 0,
+   "punta": 964.69,
+   "saturacion": 1447.04,
+   "horarios": "LV 06:30-07:00 P; LV 10:00-12:30 P; LV 07:00-10:00 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 351.71,
+   "ref": "P3",
+   "rumbo": 0,
+   "punta": 703.42,
+   "horarios": "LV 07:30-09:30 P; S 18:00-21:00 P; D 19:00-22:00 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 452.2,
+   "ref": "P5",
+   "rumbo": 45,
+   "punta": 904.4,
+   "horarios": "LV 07:30-08:00 P; S 18:00-21:00 P; D 19:00-22:00 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 104.51,
+   "ref": "P7",
+   "rumbo": 90,
+   "punta": 209.02,
+   "horarios": "LV 07:30-09:00 P; LV 10:30-11:30 P; LV 17:30-20:00 P; S 13:00-15:00 P; S 18:00-21:00 P; D 19:00-22:00 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 548.67,
+   "ref": "P9",
+   "rumbo": 90,
+   "punta": 1097.34,
+   "horarios": "LV 07:30-09:00 P; LV 10:30-11:30 P; LV 17:30-20:00 P; S 13:00-15:00 P; S 18:00-21:00 P; D 19:00-22:00 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 301.47,
+   "ref": "P10",
+   "rumbo": 90,
+   "punta": 602.93,
+   "saturacion": 904.4,
+   "horarios": "LV 07:30-08:00 P; LV 09:00-09:30 P; LV 17:30-20:00 P; S 18:00-21:00 P; D 19:00-22:00 P; LV 08:00-09:00 S",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 69.34,
+   "ref": "P12",
+   "rumbo": 90,
+   "punta": 138.67,
+   "horarios": "LV 07:30-09:30 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Norte",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 483.35,
+   "ref": "P14",
+   "rumbo": 90,
+   "punta": 966.7,
+   "horarios": "LV 07:30-09:30 P",
+   "fuente": "MOP VESPUCIO-NORTE.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 532.59,
+   "ref": "1.3",
+   "rumbo": 135,
+   "punta": 1065.18,
+   "saturacion": 1597.78,
+   "horarios": "LV 08:30-09:30 P; S 18:00-21:00 P; D 19:00-22:00 P; LV 07:30-08:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 251.22,
+   "ref": "2.2",
+   "rumbo": 90,
+   "punta": 502.45,
+   "saturacion": 753.67,
+   "horarios": "S 18:00-21:00 P; D 19:00-22:00 P",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 120.59,
+   "ref": "3.4",
+   "rumbo": 90,
+   "punta": 241.17,
+   "saturacion": 361.76,
+   "horarios": "LV 18:00-18:30 P; LV 19:30-20:00 P; S 13:00-15:00 P; S 18:00-21:00 P; D 19:00-22:00 P; LV 18:30-19:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 472.3,
+   "ref": "3.2",
+   "rumbo": 90,
+   "punta": 944.6,
+   "saturacion": 1416.89,
+   "horarios": "LV 18:00-18:30 P; LV 19:30-20:00 P; S 13:00-15:00 P; S 18:00-21:00 P; D 19:00-22:00 P; LV 18:30-19:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 45.22,
+   "ref": "4.3",
+   "rumbo": 60,
+   "punta": 90.44,
+   "saturacion": 135.66,
+   "horarios": "LV 08:30-09:30 P; LV 18:00-18:30 P; LV 19:30-20:00 P; S 18:00-21:00 P; D 19:00-22:00 P; LV 07:30-08:30 S; LV 18:30-19:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 266.3,
+   "ref": "4.2",
+   "rumbo": 60,
+   "punta": 532.59,
+   "saturacion": 798.89,
+   "horarios": "LV 08:30-09:30 P; LV 18:00-18:30 P; LV 19:30-20:00 P; S 18:00-21:00 P; D 19:00-22:00 P; LV 07:30-08:30 S; LV 18:30-19:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 382.86,
+   "ref": "5.4",
+   "rumbo": 10,
+   "punta": 765.73,
+   "saturacion": 1148.59,
+   "horarios": "LV 08:30-09:30 P; LV 07:30-08:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 290.41,
+   "ref": "5.2",
+   "rumbo": 10,
+   "punta": 580.83,
+   "saturacion": 871.24,
+   "horarios": "LV 08:30-09:30 P; LV 07:30-08:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 121.59,
+   "ref": "5.1",
+   "rumbo": 190,
+   "punta": 243.18,
+   "saturacion": 364.78,
+   "horarios": "LV 20:00-22:00 P; S 13:00-15:00 P; S 20:00-22:00 P; LV 19:00-20:00 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 551.68,
+   "ref": "5.3",
+   "rumbo": 190,
+   "punta": 1103.37,
+   "saturacion": 1655.05,
+   "horarios": "LV 20:00-22:00 P; S 13:00-15:00 P; S 20:00-22:00 P; LV 19:00-20:00 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 311.52,
+   "ref": "4.1",
+   "rumbo": 240,
+   "punta": 623.03,
+   "horarios": "S 13:00-15:00 P; S 20:00-22:00 P; D 21:00-23:00 P",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 332.62,
+   "ref": "3.1",
+   "rumbo": 270,
+   "punta": 665.24,
+   "saturacion": 997.86,
+   "horarios": "LV 08:30-09:30 P; S 13:00-15:00 P; S 20:00-22:00 P; D 21:00-23:00 P; LV 07:30-08:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 260.27,
+   "ref": "3.3",
+   "rumbo": 270,
+   "punta": 520.53,
+   "saturacion": 780.8,
+   "horarios": "LV 08:30-09:30 P; S 13:00-15:00 P; S 20:00-22:00 P; D 21:00-23:00 P; LV 07:30-08:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 251.22,
+   "ref": "2.1",
+   "rumbo": 270,
+   "punta": 502.45,
+   "saturacion": 753.67,
+   "horarios": "LV 08:30-09:30 P; LV 07:30-08:30 S",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "Vespucio Sur",
+   "via": [
+    "Vespucio"
+   ],
+   "base": 532.59,
+   "ref": "1.1",
+   "rumbo": 315,
+   "punta": 1065.18,
+   "horarios": "S 11:00-14:00 P; S 19:00-22:00 P",
+   "fuente": "MOP VESPUCIO-SUR.pdf (2026/01)"
+  },
+  {
+   "operador": "San Cristóbal",
+   "via": [
+    "San Cristóbal"
+   ],
+   "base": 565,
+   "rumbo": 180,
+   "punta": 904,
+   "saturacion": 1131,
+   "horarios": "LV 07:00-07:30 P; LV 10:00-11:00 P; LV 15:30-17:30 P; LV 07:30-09:30 S; LV 17:30-20:30 S; S 10:00-14:00 P",
+   "fuente": "MOP TUNEL-SAN-CRISTOBAL.pdf (2026/01)"
+  },
+  {
+   "operador": "San Cristóbal",
+   "via": [
+    "San Cristóbal"
+   ],
+   "base": 452,
+   "rumbo": 0,
+   "punta": 678,
+   "horarios": "LV 07:00-10:00 P; LV 17:30-20:30 P; S 10:00-14:00 P; D 17:00-21:00 P",
+   "fuente": "MOP TUNEL-SAN-CRISTOBAL.pdf (2026/01)"
+  }
+ ]
+}

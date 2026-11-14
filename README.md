@@ -28,10 +28,11 @@ App Android nativa (Kotlin) que registra automáticamente, en segundo plano mien
 Inicia el seguimiento con la app abierta (Android exige eso para permitir ubicación en segundo plano desde un servicio en primer plano).
 
 ## Limitaciones
-- **Tarifas**: la app no trae una tabla de tarifas (las concesionarias las publican en PDF, sin un formato común). Se cargan de dos formas:
-  - A mano: toca el monto de una pasada y fija base, punta, saturación y horarios (`LV 07:30-10:00 P; LV 18:00-20:00 S`; días `LV`, `S`, `D`, `SD`, `LS`, `LD`; `P` punta, `S` saturación).
-  - Por archivo: Ajustes → **Importar tarifas (JSON)**. "Exportar lista de pórticos (CSV)" entrega los id/ref de OSM para armar el archivo.
-  - Los festivos se tratan como su día de semana. Pórticos sin tarifa usan la tarifa por defecto.
+- **Tarifas**: la app incluye las tablas 2026 del MOP (categoría autos) de Costanera Norte, Autopista Central, Vespucio Norte, Vespucio Sur y Túnel San Cristóbal, con base/punta/saturación y sus horarios (`app/src/main/assets/tarifas_2026.json`, generado por `tools/gen_tarifas.py`). Se asignan solas al descargar los pórticos.
+  - La asignación depende de que el pórtico en OpenStreetMap tenga su código (P1, PA3, 1.3…) en el nombre o ref y de la vía/concesionaria y sentido. Ajustes muestra cuántos pórticos quedaron con tarifa; los que no, usan la tarifa por defecto o se fijan a mano tocando el monto.
+  - No incluye AVO I (cobra por par entrada/salida), Acceso Nororiente ni Acceso Vial AMB.
+  - Los festivos se tratan como su día de semana. Las tarifas cambian cada enero: hay que actualizar el archivo.
+  - También se puede importar otro archivo (Ajustes → **Importar tarifas (JSON)**) y exportar la lista de pórticos con sus id/ref.
 - **Falsos positivos** posibles en caleteras y vías paralelas cercanas a una autopista (si OSM no marca bien el sentido o la vía), y falsos negativos si OSM no tiene el pórtico o GPS débil (túneles).
 - Cobertura de pórticos: Región Metropolitana (bbox de la consulta).
 - Datos solo locales; no hay backend ni respaldo.
@@ -40,10 +41,10 @@ Inicia el seguimiento con la app abierta (Android exige eso para permitir ubicac
 ```json
 {"tarifas":[
   {"id":123456789, "base":500, "punta":900, "saturacion":1300, "horarios":"LV 07:30-10:00 P; LV 18:00-20:00 S"},
-  {"ref":"P1", "operador":"Costanera", "base":450}
+  {"ref":"P1", "operador":"Costanera Norte", "via":["Kennedy"], "rumbo":270, "base":450}
 ]}
 ```
-Cada entrada se asocia por `id` (nodo OSM) o por `ref` (nombre/ref del pórtico) y, opcionalmente, `operador`.
+Cada entrada se asocia por `id` (nodo OSM) o por `ref` (código en el nombre/ref del pórtico), `operador` o `via` (texto contenido en la concesionaria o en la vía) y `rumbo` (sentido en grados, ±100°). Horarios: días `LV`, `S`, `D`, `SD`, `LS`, `LD`; `P` punta, `S` saturación.
 
 El mapa usa teselas de OpenStreetMap (necesita internet) y Leaflet incluido en la app.
 
