@@ -1,0 +1,211 @@
+171 porticos, 61 con tarifa, 35 entradas de tarifa sin portico
+
+ENTRADAS SIN PORTICO
+  Costanera Norte ref=P0 rumbo=270
+  Costanera Norte ref=P1 rumbo=270
+  Costanera Norte ref=SB rumbo=None
+  Costanera Norte ref=P3 rumbo=270
+  Costanera Norte ref=EP rumbo=None
+  Costanera Norte ref=EV rumbo=None
+  Costanera Norte ref=P5 rumbo=270
+  Costanera Norte ref=P9 rumbo=270
+  Costanera Norte ref=P7 rumbo=270
+  Costanera Norte ref=P8.0 rumbo=270
+  Costanera Norte ref=P8.3 rumbo=90
+  Costanera Norte ref=P8.2 rumbo=90
+  Costanera Norte ref=P8.1 rumbo=90
+  Costanera Norte ref=P7 rumbo=90
+  Costanera Norte ref=P9 rumbo=90
+  Costanera Norte ref=P5 rumbo=90
+  Costanera Norte ref=P4 rumbo=90
+  Costanera Norte ref=P3 rumbo=90
+  Costanera Norte ref=P1 rumbo=90
+  Costanera Norte ref=P0 rumbo=90
+  Vespucio Sur ref=1.3 rumbo=135
+  Vespucio Sur ref=2.2 rumbo=90
+  Vespucio Sur ref=3.4 rumbo=90
+  Vespucio Sur ref=3.2 rumbo=90
+  Vespucio Sur ref=4.3 rumbo=60
+  Vespucio Sur ref=4.2 rumbo=60
+  Vespucio Sur ref=5.4 rumbo=10
+  Vespucio Sur ref=5.2 rumbo=10
+  Vespucio Sur ref=5.1 rumbo=190
+  Vespucio Sur ref=5.3 rumbo=190
+  Vespucio Sur ref=4.1 rumbo=240
+  Vespucio Sur ref=3.1 rumbo=270
+  Vespucio Sur ref=3.3 rumbo=270
+  Vespucio Sur ref=2.1 rumbo=270
+  Vespucio Sur ref=1.1 rumbo=315
+
+PORTICOS (id | con tarifa | rumbo | via | wayref | operador | etiquetas)
+  7857987369 | - | 328 |  |  |  | -33.42042,-70.58142 | {}
+  7857987375 | - | 129 |  |  |  | -33.39276,-70.59247 | {}
+  9193098855 | - | 277 |  |  |  | -33.38965,-70.60001 | {}
+  9193389137 | - | 243 |  |  |  | -33.40149,-70.58049 | {}
+  9193389152 | - | 179 |  |  |  | -33.40504,-70.58633 | {}
+  9938078827 | - | 341 |  |  |  | -33.40931,-70.58694 | {}
+  6116236796 | - | 282 |  |  |  | -33.43028,-70.65723 | {"name": "EV Entrada Vivaceta", "ref": "EV"}
+  7857987358 | - | 353 |  |  |  | -33.43014,-70.57470 | {"ref": "P101"}
+  9193322368 | - | 58 |  |  |  | -33.41246,-70.58204 | {"ref": "P103"}
+  7858008986 | - | 339 |  |  |  | -33.40940,-70.58697 | {"ref": "P104"}
+  7857987371 | - | 333 |  |  |  | -33.39660,-70.58876 | {"ref": "P108"}
+  13122129279 | - | 282 |  |  |  | -33.36577,-70.69511 | {"name": "P11 Pedro Fontova - Ruta 5 Norte", "ref": "P11"}
+  6876949435 | - | 11 |  |  |  | -33.39615,-70.60413 | {"ref": "P203"}
+  7857987382 | - | 168 |  |  |  | -33.40023,-70.58755 | {"ref": "P205"}
+  7858008992 | - | 138 |  |  |  | -33.42443,-70.57842 | {"ref": "P209"}
+  7857987360 | - | 95 |  |  |  | -33.42597,-70.57569 | {"ref": "P210"}
+  9193205577 | - | 173 |  |  |  | -33.43254,-70.57449 | {"ref": "P211"}
+  6876949475 | - | 240 |  |  |  | -33.39163,-70.59709 | {"ref": "P212"}
+  5579887517 | - | 269 |  |  |  | -33.40807,-70.59976 | {"name": "P8.0 Las Tranqueras - Costanera Norte", "ref": "P8.0"}
+  5788252531 | - | 63 |  |  |  | -33.40907,-70.60390 | {"name": "P8.1 Costanera Norte - Las Tranqueras", "ref": "P8.1"}
+  9515321517 | - | 83 |  |  |  | -33.40849,-70.60194 | {"name": "P8.2 Costanera Norte - Las Tranqueras", "ref": "P8.2"}
+  9515305316 | - | 17 |  |  |  | -33.40999,-70.60222 | {"bicycle": "no", "foot": "no", "horse": "no", "maxheight": "4.3", "motor_vehicle": "yes", "name": "P8.3 Costanera Norte - Las Tranqueras", "opening_hours": "24/7", "ref": "P8.3"}
+  9695367765 | - | 63 |  |  |  | -33.40240,-70.58169 | {"name": "P8.3 Costanera Norte - Las Tranqueras", "ref": "P8.3"}
+  6479098244 | - | 333 |  |  |  | -33.58170,-70.61030 | {"name": "Peaje Gabriela Oriente"}
+  6479098231 | - | 178 |  |  |  | -33.58200,-70.61124 | {"name": "Peaje Gabriela Poniente"}
+  5568374819 | - | 176 |  |  |  | -33.32469,-70.62480 | {"name": "Pórtico 60 Lateral", "ref": "P60"}
+  5568374798 | - | 359 |  |  |  | -33.32592,-70.62429 | {"name": "Pórtico 61 Lateral", "ref": "P61"}
+  9516346638 | - | 239 |  |  |  | -33.42215,-70.61983 | {"name": "SB Salida Bellavista", "ref": "SB"}
+  6518635362 | - | 339 |  |  |  | -33.60477,-70.60388 | {"name": "Tocornal Oriente"}
+  5516568781 | - | 174 |  |  |  | -33.60503,-70.60466 | {"name": "Tocornal Poniente"}
+  13743054369 | - | 236 | Autopista Acceso Sur | 79 |  | -33.66251,-70.66789 | {"fee": "600", "name": "Troncal Río Maipo"}
+  13743054399 | - | 55 | Autopista Acceso Sur | 79 |  | -33.66278,-70.66800 | {"fee": "600", "name": "Troncal Río Maipo"}
+  6316909495 | - | 177 | Autopista Aeropuerto | 72 |  | -33.41660,-70.79273 | {"name": "Peaje Acceso Vial AMB"}
+  9844306687 | Autopista Central:PA1 | 166 | Autopista Central | 5 |  | -33.69544,-70.72367 | {"name": "PA1 - La Capilla - Los Guindos", "ref": "PA1"}
+  6116371328 | Autopista Central:PA10 | 21 | Autopista Central | 5 |  | -33.49577,-70.66390 | {"name": "PA10 - Departamental - Carlos Valdovinos", "ref": "PA10"}
+  6116371330 | Autopista Central:PA11 | 201 | Autopista Central | 5 |  | -33.49535,-70.66389 | {"name": "PA11 - Carlos Valdovinos - Departamental", "ref": "PA11"}
+  6114084134 | Autopista Central:PA12 | 179 | Autopista Central | 5 |  | -33.46885,-70.65656 | {"name": "PA12 - Alameda - Carlos Valdovinos", "ref": "PA12"}
+  6114084135 | Autopista Central:PA13 | 345 | Autopista Central | 5 |  | -33.44892,-70.65959 | {"name": "PA13 - Alameda - Río Mapocho", "ref": "PA13"}
+  6114084136 | Autopista Central:PA14 | 164 | Autopista Central | 5 |  | -33.44838,-70.66009 | {"name": "PA14 - Río Mapocho - Alameda", "ref": "PA14"}
+  6116236799 | Autopista Central:PA15 | 113 | Autopista Central | 5 |  | -33.42651,-70.66889 | {"name": "PA15 - 14 de la Fama - Río Mapocho", "ref": "PA15"}
+  288057884 | Autopista Central:PA16 | 354 | Autopista Central | 5 |  | -33.41719,-70.67872 | {"name": "PA16 - Río Mapocho - 14 de la Fama - Américo Vespucio Norte", "ref": "PA16"}
+  2077631034 | Autopista Central:PA17 | 340 | Autopista Central | 5 |  | -33.36858,-70.69910 | {"name": "PA17 - 14 de la Fama - Américo Vespucio Norte", "ref": "PA17"}
+  6114138859 | Autopista Central:PA18 | 159 | Autopista Central | 5 |  | -33.36830,-70.69943 | {"name": "PA18 - Américo Vespucio Norte - 14 de la Fama", "ref": "PA18"}
+  335626019 | Autopista Central:PA2 | 13 | Autopista Central | 5 |  | -33.64734,-70.71161 | {"name": "PA2 - Los Guindos - La Capilla", "ref": "PA2"}
+  6114286297 | Autopista Central:PA3 | 353 | Autopista Central | 5 |  | -33.62276,-70.71457 | {"name": "PA3 - La Capilla - Colón", "ref": "PA3"}
+  6116371334 | Autopista Central:PA30 | 23 | Autopista Central | 5 |  | -33.50729,-70.66932 | {"name": "PA30 - Américo Vespucio - Departamental", "ref": "PA30"}
+  4399757534 | Autopista Central:PA31 | 358 | Autopista Central | 5 |  | -33.46901,-70.65624 | {"name": "PA31 - Carlos Valdovinos - Alameda", "ref": "PA31"}
+  157288624 | Autopista Central:PA32 | 178 | Autopista Central | 5 |  | -33.55888,-70.71059 | {"name": "PA32 - Las Acacias - Lo Blanco", "ref": "PA32"}
+  9566814796 | Autopista Central:PA37 | 186 | Autopista Central | 5 |  | -33.59689,-70.71579 | {"name": "PA37 - Colón - Calera de Tango", "ref": "PA37"}
+  6114286295 | Autopista Central:PA4 | 173 | Autopista Central | 5 |  | -33.62198,-70.71487 | {"name": "PA4 - Calera de Tango - La Capilla", "ref": "PA4"}
+  6114291823 | Autopista Central:PA5 | 6 | Autopista Central | 5 |  | -33.58275,-70.71384 | {"name": "PA5 - Colón - Las Acacias", "ref": "PA5"}
+  6114291826 | Autopista Central:PA6 | 186 | Autopista Central | 5 |  | -33.58241,-70.71397 | {"name": "PA6 - Lo Blanco - Colón", "ref": "PA6"}
+  2490264555 | Autopista Central:PA7 | 53 | Autopista Central | 5 |  | -33.54790,-70.69701 | {"name": "PA7 - Las Acacias - Américo Vespucio", "ref": "PA7"}
+  2490264558 | Autopista Central:PA8 | 235 | Autopista Central | 5 |  | -33.54763,-70.69684 | {"name": "PA8 - Américo Vespucio - Las Acacias", "ref": "PA8"}
+  6116371333 | Autopista Central:PA9 | 201 | Autopista Central | 5 |  | -33.50715,-70.66942 | {"name": "PA9 - Departamental - Américo Vespucio", "ref": "PA9"}
+  253434286 | - | 245 | Autopista Costanera Norte |  |  | -33.37100,-70.52258 | {"name": "P00 Puente Padre Arteaga - Puente San Francisco", "ref": "P00"}
+  9626675441 | - | 74 | Autopista Costanera Norte |  |  | -33.37121,-70.52291 | {"name": "P00 Puente San Francisco - Puente Padre Arteaga", "ref": "P00"}
+  6117141442 | - | 122 | Autopista Costanera Norte |  |  | -33.37573,-70.54306 | {"name": "P01 Gran Vía - Puente La Dehesa", "ref": "P01"}
+  2951662070 | - | 301 | Autopista Costanera Norte |  |  | -33.37582,-70.54265 | {"name": "P01 Puente La Dehesa - Gran Vía", "ref": "P01"}
+  9638303965 | - | 221 | Autopista Costanera Norte |  |  | -33.42399,-70.62195 | {"name": "P03 Puente Lo Saldes - Vivaceta", "ref": "P03"}
+  9638303963 | - | 40 | Autopista Costanera Norte |  |  | -33.42411,-70.62181 | {"name": "P03 Torres Tajamar - Puente Lo Saldes", "ref": "P03"}
+  6116236797 | - | 117 | Autopista Costanera Norte |  |  | -33.43022,-70.65796 | {"name": "P04 Vivaceta - Torres Tajamar", "ref": "P04"}
+  5572951836 | - | 115 | Autopista Costanera Norte |  |  | -33.42644,-70.67014 | {"name": "P05 Carrascal - Vivaceta", "ref": "P05"}
+  2612857718 | - | 295 | Autopista Costanera Norte |  |  | -33.42644,-70.66983 | {"name": "P05 Vivaceta - Carrascal", "ref": "P05"}
+  6508970707 | - | 234 | Autopista Costanera Norte |  |  | -33.41786,-70.79086 | {"name": "P09 Américo Vespucio Poniente - Ruta 68", "ref": "P09"}
+  6508970705 | - | 54 | Autopista Costanera Norte |  |  | -33.41808,-70.79100 | {"name": "P09 Ruta 68 - Américo Vespucio Poniente", "ref": "P09"}
+  9627393148 | Costanera Norte:P2.1 | 226 | Autopista Costanera Norte |  |  | -33.38460,-70.59270 | {"ref": "P2.1 Gran Vía - Centenario"}
+  9627393149 | Costanera Norte:P2.1 | 46 | Autopista Costanera Norte |  |  | -33.38468,-70.59260 | {"ref": "P2.1 Puente Centenario - Gran Vía"}
+  6117130667 | Costanera Norte:P2.2 | 207 | Autopista Costanera Norte |  |  | -33.39441,-70.60353 | {"name": "P2.2 Centenario - Puente Lo Saldes", "ref": "P2.2"}
+  2948768935 | Costanera Norte:P2.2 | 27 | Autopista Costanera Norte |  |  | -33.39444,-70.60339 | {"name": "P2.2 Puente Lo Saldes - Centenario", "ref": "P2.2"}
+  9641637789 | Costanera Norte:P6.1 | 269 | Autopista Costanera Norte |  |  | -33.41171,-70.73958 | {"name": "P6.1 Carrascal - Petersen", "ref": "P6.1"}
+  9641637788 | Costanera Norte:P6.1 | 89 | Autopista Costanera Norte |  |  | -33.41183,-70.73958 | {"name": "P6.1 Petersen - Carrascal", "ref": "P6.1"}
+  6509152132 | Costanera Norte:P6.2 | 93 | Autopista Costanera Norte |  |  | -33.41306,-70.76674 | {"name": "P6.2 Américo Vespucio Poniente - Petersen", "ref": "P6.2"}
+  6509152133 | Costanera Norte:P6.2 | 274 | Autopista Costanera Norte |  |  | -33.41297,-70.76646 | {"name": "P6.2 Petersen - Américo Vespucio Poniente", "ref": "P6.2"}
+  9645902676 | - | 208 | Autopista Los Libertadores | 57 |  | -33.30998,-70.70186 | {"name": "Peaje Las Canteras"}
+  9645902677 | - | 28 | Autopista Los Libertadores | 57 |  | -33.31000,-70.70175 | {"name": "Peaje Las Canteras"}
+  4999156428 | - | 269 | Autopista Nororiente | 77 |  | -33.29938,-70.67049 | {"name": "Pórtico 62 Troncal Poniente", "ref": "P62"}
+  4999156427 | - | 89 | Autopista Nororiente | 77 |  | -33.29947,-70.67049 | {"name": "Pórtico 63 Troncal Poniente", "ref": "P63"}
+  382079878 | - | 237 | Autopista Nororiente | 77 |  | -33.31132,-70.63425 | {"name": "Pórtico 64 Troncal Oriente", "ref": "P64"}
+  4999156848 | - | 57 | Autopista Nororiente | 77 |  | -33.31139,-70.63419 | {"name": "Pórtico 65 Troncal Oriente", "ref": "P65"}
+  9721386231 | - | 98 | Autopista Troncal Sur | 60 |  | -33.06352,-71.43167 | {}
+  9721386232 | - | 278 | Autopista Troncal Sur | 60 |  | -33.06341,-71.43166 | {}
+  4455202302 | Vespucio Norte:P1 | 335 | Autopista Vespucio Norte | 70 |  | -33.48336,-70.75309 | {"name": "P1 Ruta 78 - Santa Elena", "ref": "P1"}
+  6117130672 | Vespucio Norte:P10 | 90 | Autopista Vespucio Norte | 70 |  | -33.36595,-70.69690 | {"name": "P10 Ruta 5 Norte - Pedro Fontova", "ref": "P10"}
+  6117130671 | Vespucio Norte:P11 | 270 | Autopista Vespucio Norte | 70 |  | -33.36582,-70.69511 | {"name": "P11 Pedro Fontova - Ruta 5 Norte", "ref": "P11"}
+  6117130669 | Vespucio Norte:P12 | 114 | Autopista Vespucio Norte | 70 |  | -33.37339,-70.66497 | {"name": "P12 Pedro Fontova - Guanaco", "ref": "P12"}
+  6117130670 | Vespucio Norte:P13 | 294 | Autopista Vespucio Norte | 70 |  | -33.37336,-70.66461 | {"name": "P13 Recoleta - Pedro Fontova", "ref": "P13"}
+  13881069 | Vespucio Norte:P14 | 131 | Autopista Vespucio Norte | 70 |  | -33.38860,-70.63332 | {"name": "P14 Guanaco - El Salto", "ref": "P14"}
+  6117130668 | Vespucio Norte:P15 | 311 | Autopista Vespucio Norte | 70 |  | -33.38866,-70.63297 | {"name": "P15 El Salto - Recoleta", "ref": "P15"}
+  9611695678 | Vespucio Norte:P16 | 315 | Autopista Vespucio Norte | 70 |  | -33.45121,-70.77299 | {"name": "P16 Santa Elena - Ruta 68", "ref": "P16"}
+  5521500757 | Vespucio Norte:P17 | 154 | Autopista Vespucio Norte | 70 |  | -33.48287,-70.75357 | {"name": "P17 Los Mares - Ruta 78", "ref": "P17"}
+  9611695677 | Vespucio Norte:P2 | 136 | Autopista Vespucio Norte | 70 |  | -33.45638,-70.76715 | {"name": "P2 Ruta 68 - Los Mares", "ref": "P2"}
+  13877100 | Vespucio Norte:P3 | 330 | Autopista Vespucio Norte | 70 |  | -33.43871,-70.78314 | {"name": "P3 Ruta 68 - Costanera Norte", "ref": "P3"}
+  6116371482 | Vespucio Norte:P4 | 191 | Autopista Vespucio Norte | 70 |  | -33.43129,-70.78485 | {"name": "P4 Costanera Norte - Ruta 68", "ref": "P4"}
+  6116371481 | Vespucio Norte:P5 | 44 | Autopista Vespucio Norte | 70 |  | -33.39962,-70.77564 | {"name": "P5 Costanera Norte - Condell", "ref": "P5"}
+  6116371480 | Vespucio Norte:P6 | 225 | Autopista Vespucio Norte | 70 |  | -33.39935,-70.77556 | {"name": "P6 Condell - Costanera Norte", "ref": "P6"}
+  6117130675 | Vespucio Norte:P7 | 44 | Autopista Vespucio Norte | 70 |  | -33.38132,-70.75394 | {"name": "P7 Condell - Lo Echevers", "ref": "P7"}
+  6117130674 | Vespucio Norte:P8 | 237 | Autopista Vespucio Norte | 70 | Sociedad Concesionaria Vespucio Norte Express S.A. | -33.37304,-70.71130 | {"lit": "yes", "name": "P8 Ruta 5 Norte - Condell", "operator": "Sociedad Concesionaria Vespucio Norte Express S.A.", "ref": "P8"}
+  6117130673 | Vespucio Norte:P9 | 52 | Autopista Vespucio Norte | 70 |  | -33.36888,-70.70434 | {"name": "P9 Lo Echevers - Ruta 5 Norte", "ref": "P9"}
+  6876949652 | - | 227 | Autopista Vespucio Oriente | 70 |  | -33.39525,-70.61011 | {"fixme": "approx location", "ref": "P110"}
+  6876949534 | - | 109 | Autopista Vespucio Oriente | 70 |  | -33.39645,-70.61980 | {"ref": "P201"}
+  6114181658 | - | 295 | Autopista Vespucio Sur | 70 |  | -33.51656,-70.71253 | {"name": "P1.1 General Velásquez - Ruta 78", "ref": "P1.1"}
+  6114181656 | - | 112 | Autopista Vespucio Sur | 70 |  | -33.50586,-70.72845 | {"name": "P1.3 2a Transversal - Camino a Melipilla", "ref": "P1.3"}
+  6114181662 | - | 299 | Autopista Vespucio Sur | 70 |  | -33.52605,-70.69402 | {"name": "P2.1 Ruta 5 - General Velásquez", "ref": "P2.1"}
+  6114181660 | - | 119 | Autopista Vespucio Sur | 70 |  | -33.52626,-70.69410 | {"name": "P2.2 Gral. Velásquez - Ruta 5", "ref": "P2.2"}
+  6114181670 | - | 282 | Autopista Vespucio Sur | 70 |  | -33.53961,-70.65294 | {"name": "P3.1 Santa Rosa - Gran Avenida", "ref": "P3.1"}
+  6114181668 | - | 102 | Autopista Vespucio Sur | 70 |  | -33.53984,-70.65300 | {"name": "P3.2 Gran Avenida - Santa Rosa", "ref": "P3.2"}
+  6114181664 | - | 291 | Autopista Vespucio Sur | 70 |  | -33.53359,-70.67634 | {"name": "P3.3 Gran Avenida - Ruta 5", "ref": "P3.3"}
+  6114181666 | - | 112 | Autopista Vespucio Sur | 70 |  | -33.53382,-70.67645 | {"name": "P3.4 Ruta 5 - Gran Avenida", "ref": "P3.4"}
+  9624207147 | - | 210 | Autopista Vespucio Sur | 70 |  | -33.52979,-70.60485 | {"name": "P4.1 Gnmo. de Alderete - Santa Julia", "ref": "P4.1"}
+  6114166014 | - | 28 | Autopista Vespucio Sur | 70 |  | -33.52680,-70.60257 | {"name": "P4.2 Gnmo. de Alderete - Vicuña Mackena", "ref": "P4.2"}
+  6114166012 | - | 82 | Autopista Vespucio Sur | 70 |  | -33.54115,-70.61502 | {"name": "P4.3 Coronel - Santa Julia", "ref": "P4.3"}
+  6116872054 | - | 189 | Autopista Vespucio Sur | 70 |  | -33.48094,-70.57904 | {"name": "P5.1 Grecia - Quilín", "ref": "P5.1"}
+  6116872055 | - | 11 | Autopista Vespucio Sur | 70 |  | -33.48100,-70.57877 | {"name": "P5.2 Quilín - Grecia", "ref": "P5.2"}
+  6116872050 | - | 208 | Autopista Vespucio Sur | 70 |  | -33.49556,-70.58446 | {"name": "P5.3 Quilín - Las Torres", "ref": "P5.3"}
+  6116872049 | - | 28 | Autopista Vespucio Sur | 70 |  | -33.49607,-70.58450 | {"name": "P5.4 Las Torres - Quilín", "ref": "P5.4"}
+  5035918756 | - | 203 | Avenida Manuel Zañartu |  |  | -33.38818,-70.60175 | {}
+  2486323474 | - | 244 | Avenida Presidente Kennedy |  |  | -33.38768,-70.54293 | {"name": "P07 Estoril - Las Tranqueras", "ref": "P07"}
+  6116282528 | - | 66 | Avenida Presidente Kennedy |  |  | -33.38721,-70.54137 | {"name": "P07 Las Tranqueras - Estoril", "ref": "P07"}
+  5788252112 | Costanera Norte:P8.0 | 67 | Avenida Presidente Kennedy |  |  | -33.40909,-70.60433 | {"name": "P8.0 Costanera Norte - Las Tranqueras", "ref": "P8.0"}
+  3241339769 | Costanera Norte:P8.1 | 268 | Avenida Presidente Kennedy |  |  | -33.40814,-70.59976 | {"name": "P8.1 Las Tranqueras - Costanera Norte (Longitud 5,46 Kms)", "ref": "P8.1"}
+  10052503573 | - | 307 | Diego Barros Ortíz |  |  | -33.36562,-70.80166 | {}
+  10052503576 | - | 127 | Diego Barros Ortíz |  |  | -33.36566,-70.80169 | {}
+  6114138863 | Autopista Central:PA19 | 8 | General Velásquez |  |  | -33.55140,-70.70906 | {"name": "PA19 - Ruta 5 Sur - Américo Vespucio", "ref": "PA19"}
+  5145133779 | Autopista Central:PA20 | 193 | General Velásquez |  |  | -33.53647,-70.70766 | {"name": "PA20 - Américo Vespucio - Ruta 5 Sur", "ref": "PA20"}
+  6116324745 | Autopista Central:PA21 | 22 | General Velásquez |  |  | -33.50643,-70.69725 | {"name": "PA21 - Américo Vespucio - Carlos Valdovinos", "ref": "PA21"}
+  6116324746 | Autopista Central:PA22 | 202 | General Velásquez |  |  | -33.50563,-70.69702 | {"name": "PA22 - Carlos Valdovinos - Américo Vespucio", "ref": "PA22"}
+  6116324740 | Autopista Central:PA23 | 359 | General Velásquez |  |  | -33.46906,-70.68813 | {"name": "PA23 - Carlos Valdovinos - Alameda", "ref": "PA23"}
+  6116324742 | Autopista Central:PA24 | 181 | General Velásquez |  |  | -33.46984,-70.68825 | {"name": "PA24 - Alameda - Carlos Valdovinos", "ref": "PA24"}
+  6116337640 | Autopista Central:PA25 | 4 | General Velásquez |  |  | -33.44674,-70.69208 | {"name": "PA25 - Alameda - Río Mapocho", "ref": "PA25"}
+  6116337642 | Autopista Central:PA26 | 185 | General Velásquez |  |  | -33.44745,-70.69229 | {"name": "PA26 - Río Mapocho - Alameda", "ref": "PA26"}
+  285899561 | Autopista Central:PA28 | 26 | General Velásquez |  |  | -33.38224,-70.69556 | {"name": "PA28 - Río Mapocho - Ruta 5 Norte", "ref": "PA28"}
+  6116337639 | Autopista Central:PA29 | 211 | General Velásquez |  |  | -33.38194,-70.69547 | {"name": "PA29 - Ruta 5 Norte - Río Mapocho", "ref": "PA29"}
+  14115251521 | - | 104 | Ruta 5 Norte | 5 |  | -32.84063,-71.02947 | {}
+  14115251522 | - | 284 | Ruta 5 Norte | 5 |  | -32.84048,-71.02943 | {}
+  6548823505 | - | 339 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.35801,-70.70383 | {"operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P1 - Paso Superior Lo Marcoleta"}
+  6548823501 | - | 159 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.35799,-70.70409 | {"operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P2 - Paso Superior Lo Marcoleta"}
+  6122216578 | - | 339 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.33983,-70.71201 | {"operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P3 - Enlace Buenaventura"}
+  6548809057 | - | 160 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.33982,-70.71221 | {"operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P4 - Enlace Buenaventura"}
+  6223443638 | - | 159 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.23560,-70.75904 | {"charge": "200CLP motorcycle;700CLP motocar;1400CLP hgv", "check_date": "2024-04-25", "name": "Peaje Lampa", "operator": "Sociedad Concesionaria Nueva Aconcagua S.A."}
+  6277890252 | - | 339 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.23563,-70.75884 | {"charge": "200CLP motorcycle;700CLP motocar;1400CLP hgv", "check_date": "2024-04-25", "name": "Peaje Lampa", "operator": "Sociedad Concesionaria Nueva Aconcagua S.A."}
+  6615396127 | - | 339 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.31711,-70.72220 | {"name": "Pórtico 5 - Paso Superior La Montaña", "operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P5"}
+  6615396126 | - | 160 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.31708,-70.72242 | {"name": "Pórtico 6 - Paso Superior La Montaña", "operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P6"}
+  6615396116 | - | 339 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.27995,-70.73888 | {"name": "Pórtico 7 - Enlace Lo Pinto", "operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P7"}
+  6615396115 | - | 159 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.27992,-70.73910 | {"name": "Pórtico 8 - Enlace Lo Pinto", "operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P8"}
+  5008518142 | - | 138 | Ruta 5 Sur | 5 |  | -33.90762,-70.73127 | {"name": "Peaje Angostura"}
+  5008518144 | - | 318 | Ruta 5 Sur | 5 |  | -33.90760,-70.73106 | {"name": "Peaje Angostura"}
+  9651968599 | - | 68 | Ruta 68 | 68 |  | -33.45552,-70.89486 | {}
+  9651968600 | - | 248 | Ruta 68 | 68 |  | -33.45543,-70.89490 | {}
+  9668288305 | - | 124 | Ruta 68 | 68 |  | -33.36905,-71.30326 | {}
+  9668288306 | - | 305 | Ruta 68 | 68 |  | -33.36897,-71.30320 | {}
+  454636152 | - | 71 | Ruta 78 | 78 |  | -33.48487,-70.74102 | {"name": "Américo Vespucio", "ref": "T1"}
+  454636182 | - | 250 | Ruta 78 | 78 |  | -33.48476,-70.74113 | {"name": "Américo Vespucio", "ref": "T1"}
+  12511401282 | - | 56 | Ruta 78 | 78 |  | -33.68482,-70.94317 | {"name": "El Paico", "ref": "T7"}
+  12511401283 | - | 236 | Ruta 78 | 78 |  | -33.68470,-70.94321 | {"name": "El Paico", "ref": "T7"}
+  12511401272 | - | 174 | Ruta 78 | 78 |  | -33.58781,-70.84505 | {"name": "Malloco", "ref": "T4"}
+  12511401277 | - | 26 | Ruta 78 | 78 |  | -33.60125,-70.84710 | {"name": "Malloco", "ref": "T4"}
+  5532689550 | - | 242 | Ruta 78 | 78 |  | -33.55283,-70.81390 | {"name": "Padre Hurtado", "ref": "T3"}
+  12511401267 | - | 62 | Ruta 78 | 78 |  | -33.55292,-70.81378 | {"name": "Padre Hurtado", "ref": "T3"}
+  9008699779 | - | 266 | Ruta 78 | 78 |  | -33.66930,-71.15072 | {"name": "Pomaire", "ref": "T8"}
+  12511401284 | - | 86 | Ruta 78 | 78 |  | -33.66942,-71.15075 | {"name": "Pomaire", "ref": "T8"}
+  12511410970 | - | 312 | Ruta 78 | 78 |  | -33.64748,-71.36018 | {"name": "Puangue", "ref": "T10"}
+  12511410971 | - | 133 | Ruta 78 | 78 |  | -33.64755,-71.36029 | {"name": "Puangue", "ref": "T10"}
+  12511401260 | - | 75 | Ruta 78 | 78 |  | -33.49565,-70.77716 | {"name": "Rinconada", "ref": "T2"}
+  12511401261 | - | 256 | Ruta 78 | 78 |  | -33.49553,-70.77717 | {"name": "Rinconada", "ref": "T2"}
+  12511401244 | - | 212 | Ruta 78 | 78 |  | -33.64290,-70.87563 | {"name": "Talagante", "ref": "T6"}
+  12511401245 | - | 32 | Ruta 78 | 78 |  | -33.64294,-70.87549 | {"name": "Talagante", "ref": "T6"}
+  12816390867 | - | None | Ruta de la Fruta | 66 |  | -34.07812,-71.37089 | {"name": "Peaje Troncal Las Arañas"}
+  314199538 | - | None | Ruta de la Fruta | 66 |  | -33.82457,-71.52642 | {"name": "Peaje Troncal San Pedro"}
+  6114221889 | San Cristóbal: | 140 | Túnel San Cristóbal |  |  | -33.39862,-70.61572 | {"name": "P101 Salto - Kennedy", "ref": "PC 101"}
+  636752664 | San Cristóbal: | 319 | Túnel San Cristóbal |  |  | -33.39880,-70.61513 | {"name": "P102 Kennedy - El salto", "ref": "PC 102"}
