@@ -976,7 +976,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 140.68,
    "ref": "P15",
@@ -989,7 +989,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 412.0,
    "ref": "P13",
@@ -1002,7 +1002,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 301.47,
    "ref": "P11",
@@ -1017,7 +1017,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 653.18,
    "ref": "P8",
@@ -1029,7 +1029,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 452.2,
    "ref": "P6",
@@ -1041,7 +1041,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 351.71,
    "ref": "P4",
@@ -1054,7 +1054,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 211.03,
    "ref": "P2",
@@ -1067,7 +1067,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 391.91,
    "ref": "P17",
@@ -1080,7 +1080,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 120.59,
    "ref": "P1",
@@ -1093,7 +1093,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 482.35,
    "ref": "P16",
@@ -1106,7 +1106,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 351.71,
    "ref": "P3",
@@ -1118,7 +1118,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 452.2,
    "ref": "P5",
@@ -1130,7 +1130,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 104.51,
    "ref": "P7",
@@ -1142,7 +1142,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 548.67,
    "ref": "P9",
@@ -1154,7 +1154,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 301.47,
    "ref": "P10",
@@ -1167,7 +1167,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 69.34,
    "ref": "P12",
@@ -1179,7 +1179,7 @@
   {
    "operador": "Vespucio Norte",
    "via": [
-    "Vespucio"
+    "Vespucio Norte"
    ],
    "base": 483.35,
    "ref": "P14",
@@ -1191,7 +1191,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 532.59,
    "ref": "P1.3",
@@ -1204,7 +1204,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 251.22,
    "ref": "P2.2",
@@ -1217,7 +1217,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 120.59,
    "ref": "P3.4",
@@ -1230,7 +1230,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 472.3,
    "ref": "P3.2",
@@ -1243,7 +1243,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 45.22,
    "ref": "P4.3",
@@ -1256,7 +1256,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 266.3,
    "ref": "P4.2",
@@ -1269,7 +1269,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 382.86,
    "ref": "P5.4",
@@ -1282,7 +1282,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 290.41,
    "ref": "P5.2",
@@ -1295,7 +1295,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 121.59,
    "ref": "P5.1",
@@ -1308,7 +1308,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 551.68,
    "ref": "P5.3",
@@ -1321,7 +1321,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 311.52,
    "ref": "P4.1",
@@ -1333,7 +1333,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 332.62,
    "ref": "P3.1",
@@ -1346,7 +1346,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 260.27,
    "ref": "P3.3",
@@ -1359,7 +1359,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 251.22,
    "ref": "P2.1",
@@ -1372,7 +1372,7 @@
   {
    "operador": "Vespucio Sur",
    "via": [
-    "Vespucio"
+    "Vespucio Sur"
    ],
    "base": 532.59,
    "ref": "P1.1",
