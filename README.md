@@ -8,7 +8,7 @@ App Android nativa (Kotlin) que registra automáticamente, en segundo plano mien
 - Detección: un pórtico cuenta si el segmento entre dos posiciones pasa a ≤ 30 m y el rumbo de marcha difiere ≤ 60° del rumbo de la vía. No repite el mismo pórtico antes de 3 min y descarta nodos duplicados (< 100 m, < 20 s).
 - Al pasar un pórtico aparece por ~7 s una ventanita sobre cualquier app (Waze, Uber…) con el pórtico ya agregado y un botón **Descartar**. Sin el permiso "Mostrar sobre otras apps" se usa una notificación emergente con la misma acción.
 - Tarifas por horario: cada pórtico tiene base, punta y saturación con sus franjas; el monto de cada pasada se calcula según la hora.
-- Pantallas: **Día** (total, iniciar/detener, lista editable), **Historial** (por día), **Mapa** (ruta del día con los pórticos usados, o todos los pórticos con su precio en este momento) y **Ajustes**.
+- Pantallas: **Día** (total, iniciar/detener, lista editable), **Historial** (por día), **Mapa** (ruta del día con los pórticos usados, o todos los pórticos con su precio en este momento, con un simulador de día y hora para ver cómo cambian) y **Ajustes**.
 - Guarda el recorrido GPS de cada día (un punto cada ≥ 10 m) para mostrarlo en el mapa.
 - Importa recorridos GPX o CSV (columnas `time`, `lat`, `lon`, p. ej. de GPSLogger) y exporta registros a CSV con el selector de archivos del sistema.
 - Notificación persistente con el total del día y botón **Detener**.

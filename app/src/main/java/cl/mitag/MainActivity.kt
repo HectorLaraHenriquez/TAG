@@ -55,6 +55,11 @@ class MainActivity : Activity() {
     private var mapShown = ""        // lo último dibujado, para no redibujar igual
     private var tab = 0
     private lateinit var mapBtns: List<Button>
+    private lateinit var simBar: LinearLayout
+    private lateinit var simLabel: TextView
+    private var simOn = false        // false = precios de ahora; true = día/hora simulados
+    private var simDay = 0           // 0 = lunes a viernes, 1 = sábado, 2 = domingo
+    private var simMin = 8 * 60
 
     private val ui = Handler(Looper.getMainLooper())
     private var viewDay = dayKey(System.currentTimeMillis())
@@ -197,6 +202,19 @@ class MainActivity : Activity() {
         mapBtns.forEach { mapBar.addView(it) }
         val mapCol = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; visibility = View.GONE }
         mapCol.addView(mapBar)
+        // simulador de horario (solo en "Pórticos y precios")
+        simBar = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL; setPadding(dp(12), 0, dp(12), 0); visibility = View.GONE }
+        fun small(text: String, weight: Float, onClick: () -> Unit) = btn(text, onClick = onClick).apply {
+            textSize = 14f; setPadding(dp(4), dp(8), dp(4), dp(8))
+            layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, weight).apply { marginEnd = dp(6); bottomMargin = dp(8) }
+        }
+        simBar.addView(small("Ahora", 1.3f) { simOn = false; drawMap() })
+        simBar.addView(small("Día", 1f) { simDay = if (simOn) (simDay + 1) % 3 else simDay; simOn = true; drawMap() })
+        simBar.addView(small("−30", 1f) { simMin = if (simOn) (simMin + 1410) % 1440 else simMin; simOn = true; drawMap() })
+        simBar.addView(small("+30", 1f) { simMin = if (simOn) (simMin + 30) % 1440 else simMin; simOn = true; drawMap() })
+        simLabel = tv("", 14f, TX, true).apply { gravity = Gravity.CENTER }
+        simBar.addView(simLabel, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 2f).apply { bottomMargin = dp(8) })
+        mapCol.addView(simBar)
         mapCol.addView(web, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
 
         val content = FrameLayout(this)
@@ -304,10 +322,26 @@ class MainActivity : Activity() {
     }
 
     // ---------- mapa ----------
+    /** Instante del próximo día del tipo elegido (L-V, sábado o domingo) a la hora simulada. */
+    private fun simTime(): Long {
+        val c = java.util.Calendar.getInstance()
+        fun type(): Int = when (c.get(java.util.Calendar.DAY_OF_WEEK)) {
+            java.util.Calendar.SATURDAY -> 1; java.util.Calendar.SUNDAY -> 2; else -> 0
+        }
+        var guard = 0
+        while (type() != simDay && guard++ < 7) c.add(java.util.Calendar.DAY_OF_YEAR, 1)
+        c.set(java.util.Calendar.HOUR_OF_DAY, simMin / 60); c.set(java.util.Calendar.MINUTE, simMin % 60)
+        c.set(java.util.Calendar.SECOND, 0); c.set(java.util.Calendar.MILLISECOND, 0)
+        return c.timeInMillis
+    }
+
     private fun drawMap() {
         if (!mapReady) return
         mapBtns.forEachIndexed { i, b -> b.background = shape(if (i == mapMode) LINE else CARD, LINE) }
-        val now = System.currentTimeMillis()
+        simBar.visibility = if (mapMode == 1) View.VISIBLE else View.GONE
+        val now = if (mapMode == 1 && simOn) simTime() else System.currentTimeMillis()
+        val whenTxt = if (simOn) listOf("Lun-Vie", "Sábado", "Domingo")[simDay] + " %02d:%02d".format(simMin / 60, simMin % 60) else "Ahora"
+        simLabel.text = whenTxt
         val key: String
         val d = JSONObject()
         val marks = JSONArray()
@@ -337,15 +371,15 @@ class MainActivity : Activity() {
             d.put("fit", true)
         } else {
             val gs = Store.gantries
-            key = "g|${gs.size}|${now / 60000}|${Store.defPrice}|" + gs.count { Store.tariff(it.id) != null }
+            key = "g|${gs.size}|${now / 60000}|$simOn|${Store.defPrice}|" + gs.count { Store.tariff(it.id) != null }
             if (key == mapShown) return
             for (g in gs) {
                 val (name, sub) = Store.label(g.id)
                 val tf = Store.tariff(g.id)
                 val pr = Store.priceAt(g.id, now)
                 val info = when {
-                    tf != null && pr != null -> "Ahora: ${money(pr)} (${bandName(tf.bandAt(now))})"
-                    pr != null -> "Ahora: ${money(pr)} (tarifa por defecto)"
+                    tf != null && pr != null -> "$whenTxt: ${money(pr)} (${bandName(tf.bandAt(now))})"
+                    pr != null -> "$whenTxt: ${money(pr)} (tarifa por defecto)"
                     else -> "Sin tarifa"
                 }
                 marks.put(JSONObject().put("lat", g.lat).put("lon", g.lon).put("r", 6)
