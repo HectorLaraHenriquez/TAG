@@ -1,0 +1,34 @@
+name: data
+
+# Regenera data/porticos.json (pórticos de OpenStreetMap + tarifas) y lo deja en el repo,
+# desde donde la app lo descarga.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * 1"
+  push:
+    branches: [main, "claude/**"]
+    paths: ["tools/**", ".github/workflows/data.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-${{ github.ref }}
+
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generar datos
+        run: python3 tools/build_data.py
+      - name: Guardar en el repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet -- data/porticos.json data/reporte.txt && exit 0
+          git commit -m "Actualizar data/porticos.json"
+          git pull --rebase
+          git push

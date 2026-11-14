@@ -142,13 +142,12 @@ add("San Cristóbal", ["San Cristóbal"], [
     ("", 0, 452, 678, None, j(w("LV","P","07:00-10:00","17:30-20:30"), w("S","P","10:00-14:00"), w("D","P","17:00-21:00"))),
 ], "MOP TUNEL-SAN-CRISTOBAL.pdf (2026/01)")
 
-doc = {
-    "vigencia": "2026",
-    "fuente": "https://concesiones.mop.gob.cl/peajes-y-porticos/",
-    "nota": "Categoría 1 y 4. No incluye AVO I (cobro por par entrada/salida), Acceso Nororiente ni Acceso Vial AMB.",
-    "tarifas": out,
-}
-dst = os.path.join(os.path.dirname(__file__), "..", "app", "src", "main", "assets", "tarifas_2026.json")
-with open(dst, "w", encoding="utf-8") as f:
-    json.dump(doc, f, ensure_ascii=False, indent=1)
-print(len(out), "entradas")
+NOTA = "Categoría 1 y 4. No incluye AVO I (cobro por par entrada/salida), Acceso Nororiente ni Acceso Vial AMB."
+FUENTE = "https://concesiones.mop.gob.cl/peajes-y-porticos/"
+
+if __name__ == "__main__":
+    doc = {"vigencia": "2026", "fuente": FUENTE, "nota": NOTA, "tarifas": out}
+    dst = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "app", "src", "main", "assets", "tarifas_2026.json")
+    with open(dst, "w", encoding="utf-8") as f:
+        json.dump(doc, f, ensure_ascii=False, indent=1)
+    print(len(out), "entradas")
