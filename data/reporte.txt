@@ -88,7 +88,7 @@ PORTICOS (id | con tarifa | rumbo | via | wayref | operador | etiquetas)
   9721386232 | ::None:1100 | 278 | Autopista Troncal Sur | 60 |  | -33.06341,-71.43166 | {}
   4455202302 | Vespucio Norte:P1:0:120.59 | 335 | Autopista Vespucio Norte | 70 |  | -33.48336,-70.75309 | {"name": "P1 Ruta 78 - Santa Elena", "ref": "P1"}
   6117130672 | Vespucio Norte:P10:90:301.47 | 90 | Autopista Vespucio Norte | 70 |  | -33.36595,-70.69690 | {"name": "P10 Ruta 5 Norte - Pedro Fontova", "ref": "P10"}
-  6117130671 | Vespucio Sur:P1.1:315:532.59 | 270 | Autopista Vespucio Norte | 70 |  | -33.36582,-70.69511 | {"name": "P11 Pedro Fontova - Ruta 5 Norte", "ref": "P11"}
+  6117130671 | Vespucio Norte:P11:270:301.47 | 270 | Autopista Vespucio Norte | 70 |  | -33.36582,-70.69511 | {"name": "P11 Pedro Fontova - Ruta 5 Norte", "ref": "P11"}
   6117130669 | Vespucio Norte:P12:90:69.34 | 114 | Autopista Vespucio Norte | 70 |  | -33.37339,-70.66497 | {"name": "P12 Pedro Fontova - Guanaco", "ref": "P12"}
   6117130670 | Vespucio Norte:P13:270:412.0 | 294 | Autopista Vespucio Norte | 70 |  | -33.37336,-70.66461 | {"name": "P13 Recoleta - Pedro Fontova", "ref": "P13"}
   13881069 | Vespucio Norte:P14:90:483.35 | 131 | Autopista Vespucio Norte | 70 |  | -33.38860,-70.63332 | {"name": "P14 Guanaco - El Salto", "ref": "P14"}
