@@ -83,7 +83,8 @@ def ref_keys(name):
     keys = {"".join(toks)} | set(toks)
     for i in range(len(toks) - 1):
         keys.add(toks[i] + toks[i + 1])
-    return keys
+    # "P01" equivale a "P1"
+    return keys | {re.sub(r"^([A-Z]+)0+(?=\d)", r"\1", k) for k in keys}
 
 
 def ref_matches(ref, g):
@@ -100,6 +101,10 @@ def ref_matches(ref, g):
 
 
 def match(entry, g):
+    if g["id"] in entry.get("ids", []):
+        return True
+    if entry.get("nombre") and fold(entry["nombre"]) not in fold(g["tags"].get("name", "")):
+        return False
     op = fold(entry.get("operador", ""))
     vias = [fold(v) for v in entry.get("via", [])]
     place = (not op and not vias) or (op and op in fold(g["op"])) or any(v in fold(g["road"]) or v in fold(g["wayref"]) for v in vias)
@@ -137,12 +142,12 @@ def main():
         f.write(f"{len(gantries)} porticos, {len(assigned)} con tarifa, {len(unmatched)} entradas de tarifa sin portico\n\n")
         f.write("ENTRADAS SIN PORTICO\n")
         for e in unmatched:
-            f.write(f"  {e['operador']} ref={e.get('ref','')} rumbo={e.get('rumbo')}\n")
+            f.write(f"  {e['operador']} ref={e.get('ref','')} nombre={e.get('nombre','')} rumbo={e.get('rumbo')}\n")
         f.write("\nPORTICOS (id | con tarifa | rumbo | via | wayref | operador | etiquetas)\n")
         for g in sorted(gantries, key=lambda x: (x["road"], x["name"], x["id"])):
             tags = {k: v for k, v in g["tags"].items() if k != "highway"}
             e = assigned.get(g["id"])
-            mark = (e["operador"] + ":" + e.get("ref", "")) if e else "-"
+            mark = (f"{e['operador']}:{e.get('ref', '') or e.get('nombre', '')}:{e.get('rumbo')}:{e['base']}") if e else "-"
             f.write(f"  {g['id']} | {mark} | {g['brg']} | {g['road']} | {g['wayref']} | {g['op']} | {g['lat']:.5f},{g['lon']:.5f} | {json.dumps(tags, ensure_ascii=False)}\n")
     print(open(os.path.join(ROOT, "data", "reporte.txt"), encoding="utf-8").read()[:3000])
 

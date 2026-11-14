@@ -123,17 +123,17 @@ vs51 = j(w("LV","P","20:00-22:00"), w("S","P","13:00-15:00","20:00-22:00"), w("L
 vs31 = j(w("LV","P","08:30-09:30"), w("S","P","13:00-15:00","20:00-22:00"), w("D","P","21:00-23:00"), w("LV","S","07:30-08:30"))
 add("Vespucio Sur", ["Vespucio"], [
     # Sentido poniente - oriente (Ruta 78 -> Grecia)
-    ("1.3", 135, 532.59, 1065.18, 1597.78, j(w("LV","P","08:30-09:30"), vs_wk, w("LV","S","07:30-08:30"))),
-    ("2.2", 90, 251.22, 502.45, 753.67, vs_wk),
-    ("3.4", 90, 120.59, 241.17, 361.76, vs3), ("3.2", 90, 472.30, 944.60, 1416.89, vs3),
-    ("4.3", 60, 45.22, 90.44, 135.66, vs4), ("4.2", 60, 266.30, 532.59, 798.89, vs4),
-    ("5.4", 10, 382.86, 765.73, 1148.59, vs5), ("5.2", 10, 290.41, 580.83, 871.24, vs5),
+    ("P1.3", 135, 532.59, 1065.18, 1597.78, j(w("LV","P","08:30-09:30"), vs_wk, w("LV","S","07:30-08:30"))),
+    ("P2.2", 90, 251.22, 502.45, 753.67, vs_wk),
+    ("P3.4", 90, 120.59, 241.17, 361.76, vs3), ("P3.2", 90, 472.30, 944.60, 1416.89, vs3),
+    ("P4.3", 60, 45.22, 90.44, 135.66, vs4), ("P4.2", 60, 266.30, 532.59, 798.89, vs4),
+    ("P5.4", 10, 382.86, 765.73, 1148.59, vs5), ("P5.2", 10, 290.41, 580.83, 871.24, vs5),
     # Sentido oriente - poniente (Grecia -> Ruta 78)
-    ("5.1", 190, 121.59, 243.18, 364.78, vs51), ("5.3", 190, 551.68, 1103.37, 1655.05, vs51),
-    ("4.1", 240, 311.52, 623.03, None, j(w("S","P","13:00-15:00","20:00-22:00"), w("D","P","21:00-23:00"))),
-    ("3.1", 270, 332.62, 665.24, 997.86, vs31), ("3.3", 270, 260.27, 520.53, 780.80, vs31),
-    ("2.1", 270, 251.22, 502.45, 753.67, vs5),
-    ("1.1", 315, 532.59, 1065.18, None, w("S","P","11:00-14:00","19:00-22:00")),
+    ("P5.1", 190, 121.59, 243.18, 364.78, vs51), ("P5.3", 190, 551.68, 1103.37, 1655.05, vs51),
+    ("P4.1", 240, 311.52, 623.03, None, j(w("S","P","13:00-15:00","20:00-22:00"), w("D","P","21:00-23:00"))),
+    ("P3.1", 270, 332.62, 665.24, 997.86, vs31), ("P3.3", 270, 260.27, 520.53, 780.80, vs31),
+    ("P2.1", 270, 251.22, 502.45, 753.67, vs5),
+    ("P1.1", 315, 532.59, 1065.18, None, w("S","P","11:00-14:00","19:00-22:00")),
 ], "MOP VESPUCIO-SUR.pdf (2026/01)")
 
 # ---------------- Túnel San Cristóbal (sin código de pórtico: se asocia por vía y sentido) ----------------
@@ -142,7 +142,66 @@ add("San Cristóbal", ["San Cristóbal"], [
     ("", 0, 452, 678, None, j(w("LV","P","07:00-10:00","17:30-20:30"), w("S","P","10:00-14:00"), w("D","P","17:00-21:00"))),
 ], "MOP TUNEL-SAN-CRISTOBAL.pdf (2026/01)")
 
-NOTA = "Categoría 1 y 4. No incluye AVO I (cobro por par entrada/salida), Acceso Nororiente ni Acceso Vial AMB."
+# ---------------- AVO I: solo La Pirámide (el resto cobra por par entrada/salida) ----------------
+add("Vespucio Oriente", ["Vespucio Oriente"], [
+    ("P110", None, 267, 534, None, w("LV","P","07:30-09:30","17:30-19:30")),
+], "MOP AVO-I.pdf (2026/01)")
+
+# ---------------- Acceso Nororiente (el PDF no publica el horario punta: se usa la tarifa normal) ----------------
+add("Nororiente", ["Nororiente"], [(r, None, 4116, 6173, None, "") for r in ("P62", "P63", "P64", "P65")],
+    "MOP ACCESO-NORORIENTE.pdf (2026/01)")
+
+# ---------------- Ruta 78 (la punta es solo de temporada alta y fines de semana largos: no se modela) ----------------
+add("Autopista del Sol", ["Ruta 78"], [
+    ("T1", None, 718, None, None, ""), ("T2", None, 330, None, None, ""), ("T3", None, 225, None, None, ""),
+    ("T4", None, 225, None, None, ""), ("T6", None, 375, None, None, ""), ("T7", None, 375, None, None, ""),
+    ("T8", None, 599, None, None, ""), ("T10", None, 1161, None, None, ""),
+], "MOP RUTA-78.pdf (2026/07)")
+
+# ---------------- Ruta 5 Norte, Santiago - Los Vilos (el PDF no publica el horario punta) ----------------
+add("Nueva Aconcagua", [], [
+    ("P1", None, 181, 362, None, ""), ("P2", None, 181, 362, None, ""),
+    ("P3", None, 218, 436, None, ""), ("P4", None, 218, 436, None, ""),
+    ("P5", None, 397, 794, None, ""), ("P6", None, 397, 794, None, ""),
+    ("P7", None, 486, 972, None, ""), ("P8", None, 486, 972, None, ""),
+], "MOP STGO-LOS-VILOS.pdf (2026/05)")
+
+# ---------------- Peajes y pórticos que se identifican por nombre o por vía ----------------
+def add_named(nombre, base, src, punta=None, via=None):
+    e = {"operador": "", "via": via or [], "base": base, "fuente": src}
+    if nombre: e["nombre"] = nombre
+    if punta is not None: e["punta"] = punta
+    out.append(e)
+
+add_named("Peaje Lampa", 900, "MOP STGO-LOS-VILOS.pdf (2026/05)")
+add_named("Peaje Angostura", 3800, "MOP SANTIAGO-TALCA.pdf (2026/04)")
+add_named("Troncal Río Maipo", 621, "MOP SANTIAGO-TALCA.pdf (2026/04)")
+add_named("Peaje Gabriela", 621, "MOP SANTIAGO-TALCA.pdf (2026/04)")
+add_named("Tocornal", 207, "MOP SANTIAGO-TALCA.pdf (2026/04)")
+add_named("Peaje Las Canteras", 1400, "MOP LOS-LIBERTADORES-FEBRERO.pdf (2026/02)")
+add_named("Las Arañas", 2050, "MOP RUTA-66-CAMINO-DE-LA-FRUTA.pdf (2026/01)")
+add_named("Troncal San Pedro", 1100, "MOP RUTA-66-CAMINO-DE-LA-FRUTA.pdf (2026/01)")
+add_named("Acceso Vial AMB", 889, "MOP ACCESO-VIAL.pdf (2026/01)")
+add_named("", 2700, "MOP RUTA-68.pdf (2026/01)", punta=4000, via=["Ruta 68"])          # troncales Lo Prado y Zapata
+add_named("", 1100, "MOP RUTA-68.pdf (2026/01)", via=["Troncal Sur"])                    # Troncal Sur
+
+# ---------------- Pórticos cuya vía no tiene nombre en OSM: se fijan por id de nodo ----------------
+def force(op, ref, rumbo, ids):
+    for e in out:
+        if e["operador"] == op and e.get("ref") == ref and e.get("rumbo") == rumbo:
+            e["ids"] = ids
+            return
+    raise SystemExit(f"force: no existe {op} {ref} {rumbo}")
+
+force("Costanera Norte", "EV", None, [6116236796])
+force("Costanera Norte", "SB", None, [9516346638])
+force("Costanera Norte", "P8.0", W, [5579887517])
+force("Costanera Norte", "P8.1", E, [5788252531])
+force("Costanera Norte", "P8.2", E, [9515321517])
+force("Costanera Norte", "P8.3", E, [9515305316, 9695367765])
+force("Vespucio Norte", "P11", 270, [13122129279])
+
+NOTA = "Categoría 1 y 4 (autos). AVO I cobra por par entrada/salida y solo se incluye La Pirámide. Sin horario punta publicado: Nororiente, Ruta 5 Norte, Ruta 68, Ruta 78."
 FUENTE = "https://concesiones.mop.gob.cl/peajes-y-porticos/"
 
 if __name__ == "__main__":
