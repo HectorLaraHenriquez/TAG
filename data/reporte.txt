@@ -1,4 +1,4 @@
-171 porticos, 147 con tarifa, 1 entradas de tarifa sin portico
+169 porticos, 147 con tarifa, 1 entradas de tarifa sin portico
 
 ENTRADAS SIN PORTICO
   Costanera Norte ref=EP nombre= rumbo=None
@@ -60,7 +60,7 @@ PORTICOS (id | con tarifa | rumbo | via | wayref | operador | etiquetas)
   2490264558 | Autopista Central:PA8:180:452.06 | 235 | Autopista Central | 5 |  | -33.54763,-70.69684 | {"name": "PA8 - Américo Vespucio - Las Acacias", "ref": "PA8"}
   6116371333 | Autopista Central:PA9:180:392.83 | 201 | Autopista Central | 5 |  | -33.50715,-70.66942 | {"name": "PA9 - Departamental - Américo Vespucio", "ref": "PA9"}
   253434286 | Costanera Norte:P0:270:149.8 | 245 | Autopista Costanera Norte |  |  | -33.37100,-70.52258 | {"name": "P00 Puente Padre Arteaga - Puente San Francisco", "ref": "P00"}
-  9626675441 | Costanera Norte:P0:90:149.8 | 74 | Autopista Costanera Norte |  |  | -33.37121,-70.52291 | {"name": "P00 Puente San Francisco - Puente Padre Arteaga", "ref": "P00"}
+  9626675441 | Costanera Norte:P0:90:149.8 | 74 | Autopista Costanera Norte |  |  | -33.37121,-70.52291 | {"name": "P00 Puente San Francsico - Puente Padre Arteaga", "ref": "P00"}
   6117141442 | Costanera Norte:P1:90:449.4 | 122 | Autopista Costanera Norte |  |  | -33.37573,-70.54306 | {"name": "P01 Gran Vía - Puente La Dehesa", "ref": "P01"}
   2951662070 | Costanera Norte:P1:270:449.4 | 301 | Autopista Costanera Norte |  |  | -33.37582,-70.54265 | {"name": "P01 Puente La Dehesa - Gran Vía", "ref": "P01"}
   9638303965 | Costanera Norte:P3:270:719.04 | 221 | Autopista Costanera Norte |  |  | -33.42399,-70.62195 | {"name": "P03 Puente Lo Saldes - Vivaceta", "ref": "P03"}
@@ -137,8 +137,6 @@ PORTICOS (id | con tarifa | rumbo | via | wayref | operador | etiquetas)
   6116337642 | Autopista Central:PA26:180:421.93 | 185 | General Velásquez |  |  | -33.44745,-70.69229 | {"name": "PA26 - Río Mapocho - Alameda", "ref": "PA26"}
   285899561 | Autopista Central:PA28:0:512.34 | 26 | General Velásquez |  |  | -33.38224,-70.69556 | {"name": "PA28 - Río Mapocho - Ruta 5 Norte", "ref": "PA28"}
   6116337639 | Autopista Central:PA29:180:512.34 | 211 | General Velásquez |  |  | -33.38194,-70.69547 | {"name": "PA29 - Ruta 5 Norte - Río Mapocho", "ref": "PA29"}
-  14115251521 | - | 104 | Ruta 5 Norte | 5 |  | -32.84063,-71.02947 | {}
-  14115251522 | - | 284 | Ruta 5 Norte | 5 |  | -32.84048,-71.02943 | {}
   6548823505 | Nueva Aconcagua:P1:None:181 | 339 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.35801,-70.70383 | {"operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P1 - Paso Superior Lo Marcoleta"}
   6548823501 | Nueva Aconcagua:P2:None:181 | 159 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.35799,-70.70409 | {"operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P2 - Paso Superior Lo Marcoleta"}
   6122216578 | Nueva Aconcagua:P3:None:218 | 339 | Ruta 5 Norte | 5 | Sociedad Concesionaria Nueva Aconcagua S.A. | -33.33983,-70.71201 | {"operator": "Sociedad Concesionaria Nueva Aconcagua S.A.", "ref": "P3 - Enlace Buenaventura"}
